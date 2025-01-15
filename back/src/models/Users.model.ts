@@ -4,7 +4,7 @@ export interface IUser extends Document {
   name: string;
   lastName?: string;
   email: string;
-  avatar?: string;
+  profilePicture?: string;
 
   about?: string;
   nationality?: string;
@@ -14,7 +14,11 @@ export interface IUser extends Document {
 
   role: UserRole;
   isActive: boolean;
-  pets: Schema.Types.ObjectId; //relaciones con el modelo de pets
+
+  pets: Schema.Types.ObjectId;
+  reviews: Schema.Types.ObjectId;
+  schedule: Schema.Types.ObjectId;
+  availability: Schema.Types.ObjectId;
 
   createdAt: Date;
   updatedAt: Date;
@@ -41,7 +45,7 @@ const userSchema = new Schema<IUser>(
       required: [true, "Email is required in Data Base"],
       unique: true,
     },
-    avatar: {
+    profilePicture: {
       type: String,
     },
 
@@ -53,7 +57,7 @@ const userSchema = new Schema<IUser>(
     },
     address: {
       type: String,
-      required: [true, "Address is required in Data Base"],
+      required: [true, "Address is required in Data Base Model"],
     },
     phone: {
       type: [String],
@@ -65,7 +69,7 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: Object.values(UserRole),
-      required: [true, "Role is required in Data Base"],
+      required: [true, "Role is required in Data Base Model"],
       default: UserRole.OWNER, //por defecto dueño
     },
     isActive: {
@@ -77,7 +81,22 @@ const userSchema = new Schema<IUser>(
     pets: {
       type: Schema.Types.ObjectId,
       ref: "Pets",
-      required: [true, "Pets is required in Data Base"],
+      required: [true, "Pets is required in Data Base Model"],
+    },
+    reviews: {
+      type: Schema.Types.ObjectId,
+      ref: "Reviews",
+      required: [true, "Reviews is required in Data Base Model"],
+    },
+    schedule: {
+      type: Schema.Types.ObjectId,
+      ref: "Schedule",
+      required: [true, "Schedule is required in Data Base Model"],
+    },
+    availability: {
+      type: Schema.Types.ObjectId,
+      ref: "Availability",
+      required: [true, "Availability is required in Data Base Model"],
     },
   },
   {

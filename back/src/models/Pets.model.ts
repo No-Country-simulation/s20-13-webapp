@@ -20,14 +20,14 @@ const petsSchema = new Schema<IPets>(
   {
     name: {
       type: String,
-      required: [true, "Name is required in Data Base"],
+      required: [true, "Name is required in Data Base Model"],
     },
     image: {
       type: [String],
     },
     species: {
       type: String,
-      required: [true, "Species is required in Data Base"],
+      required: [true, "Species is required in Data Base Model"],
     },
     breed: {
       type: String,
@@ -47,7 +47,7 @@ const petsSchema = new Schema<IPets>(
     user: {
       type: Schema.Types.ObjectId,
       ref: "Users",
-      required: [true, "User is required in Data Base"],
+      required: [true, "User is required in Data Base Model"],
     },
   },
   {

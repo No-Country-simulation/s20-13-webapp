@@ -14,18 +14,18 @@ const reviewsSchema = new Schema<IReviews>(
   {
     comment: {
       type: String,
-      required: [true, "Comment is required in Data Base"],
+      required: [true, "Comment is required in Data Base Model"],
     },
     rating: {
       type: Number,
-      required: [true, "Rating is required in Data Base"],
+      required: [true, "Rating is required in Data Base Model"],
     },
 
     //relaciones con modelos
     user: {
       type: Schema.Types.ObjectId,
       ref: "Users",
-      required: [true, "User is required in Data Base"],
+      required: [true, "User is required in Data Base Model"],
     },
   },
   {
@@ -35,4 +35,4 @@ const reviewsSchema = new Schema<IReviews>(
   }
 );
 
-export const Pets = model<IReviews>("Reviews", reviewsSchema);
+export const Reviews = model<IReviews>("Reviews", reviewsSchema);

@@ -39,7 +39,7 @@ Integración con Mercado Pago para que tu dinero esté siempre seguro.
 - 🟡 **JavaScript** (React)  
 - 🔴 **Node.js**
 - 🟣 **Express con TS**
-- 🟠 **MongoDB con Mongooze**
+- 🟠 **MongoDB con Mongoose**
 - 🟤 **Cludinary**
 - ⚪ **Mercado Pago**
 

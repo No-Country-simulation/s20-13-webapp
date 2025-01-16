@@ -8,17 +8,17 @@ export interface IUser extends Document {
 
   about?: string;
   nationality?: string;
-  address: string;
+  address?: string;
   phone?: [string];
   certificate?: [string]; //certificados de cuidador
 
-  role: UserRole;
-  isActive: boolean;
+  role?: UserRole;
+  isActive?: boolean;
 
-  pets: Schema.Types.ObjectId;
-  reviews: Schema.Types.ObjectId;
-  schedule: Schema.Types.ObjectId;
-  availability: Schema.Types.ObjectId;
+  pets?: Schema.Types.ObjectId;
+  reviews?: Schema.Types.ObjectId;
+  schedule?: Schema.Types.ObjectId;
+  availability?: Schema.Types.ObjectId;
 
   createdAt: Date;
   updatedAt: Date;
@@ -30,15 +30,15 @@ export enum UserRole {
   ADMIN = "administrator",
 }
 
-const userSchema = new Schema<IUser>(
+const userSchema:Schema = new Schema<IUser>(
   {
     name: {
       type: String,
-      required: [true, "Name is required in Data Base"],
+      required: false,
     },
     lastName: {
       type: String,
-      required: [true, "Last name is required in Data Base"],
+      required: false
     },
     email: {
       type: String,
@@ -57,7 +57,7 @@ const userSchema = new Schema<IUser>(
     },
     address: {
       type: String,
-      required: [true, "Address is required in Data Base Model"],
+      required: false,
     },
     phone: {
       type: [String],
@@ -69,7 +69,7 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: Object.values(UserRole),
-      required: [true, "Role is required in Data Base Model"],
+      required:false,
       default: UserRole.OWNER, //por defecto dueño
     },
     isActive: {
@@ -81,22 +81,22 @@ const userSchema = new Schema<IUser>(
     pets: {
       type: Schema.Types.ObjectId,
       ref: "Pets",
-      required: [true, "Pets is required in Data Base Model"],
+      required: false,
     },
     reviews: {
       type: Schema.Types.ObjectId,
       ref: "Reviews",
-      required: [true, "Reviews is required in Data Base Model"],
+      required: false,
     },
     schedule: {
       type: Schema.Types.ObjectId,
       ref: "Schedule",
-      required: [true, "Schedule is required in Data Base Model"],
+      required:false,
     },
     availability: {
       type: Schema.Types.ObjectId,
       ref: "Availability",
-      required: [true, "Availability is required in Data Base Model"],
+      required:false,
     },
   },
   {

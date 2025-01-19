@@ -3,17 +3,17 @@ import { config } from "dotenv"
 import { connectDB } from './config/db';
 import cors from 'cors';
 import morgan from 'morgan';
-import authRouter from './routes/auth.router';
+import authRouter from './routes/auth.router'
+import userRouter from "./routes/users.router"
+import { corsConfig } from './config/cors';
 
 config()
 
 connectDB()
 
 const server = express()
-server.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}))
+// server.use(cors(corsConfig))
+server.use(cors())
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use(morgan("dev"))
@@ -24,5 +24,6 @@ server.use((req, res, next) => {
 })
 
 server.use("/api/auth", authRouter)
+server.use("/api/users",userRouter)
 
 export default server

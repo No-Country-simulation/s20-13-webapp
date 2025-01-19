@@ -3,12 +3,12 @@ import React from 'react'
 export default function Header() {
   return (
     <header>
-    <div class="navbar">
+    <div className="navbar">
       
-      <div class="logo" onclick="logoClick()"><img src="Logo.png" alt=""/></div>
+      <div className="logo" ><img src="Logo.png" alt="logo pawpet"/></div>
   
      
-      <div class="menu">
+      <div className="menu">
         <a href="#">Soy dueño</a>
         <a href="#">Soy cuidador</a>
         <a href="#">Home</a>

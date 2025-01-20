@@ -4,6 +4,7 @@ import { connectDB } from './config/db';
 import cors from 'cors';
 import morgan from 'morgan';
 import authRouter from './routes/auth.router';
+import petsRouter from './routes/pets.router';
 
 config()
 
@@ -24,5 +25,6 @@ server.use((req, res, next) => {
 })
 
 server.use("/api/auth", authRouter)
+server.use("/pets/", petsRouter)
 
 export default server

@@ -3,7 +3,7 @@ import { Schema, model, Document } from "mongoose";
 export interface IPets extends Document {
   name: string;
   image?: [string];
-  species: string; //podemos poner un enum con las especies que permitimos
+  species: PetSpecies;
   breed?: string;
   age?: number;
 
@@ -14,6 +14,11 @@ export interface IPets extends Document {
 
   createdAt: Date;
   updatedAt: Date;
+}
+
+export enum PetSpecies {
+  DOG = "dog",
+  CAT = "cat",
 }
 
 const petsSchema = new Schema<IPets>(

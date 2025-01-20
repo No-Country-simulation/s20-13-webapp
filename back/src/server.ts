@@ -24,6 +24,7 @@ server.use((req, res, next) => {
   next()
 })
 
+//rutas 
 server.use("/api/auth", authRouter)
 server.use("/pets/", petsRouter)
 

@@ -3,12 +3,14 @@ import { PetsController } from "../controllers/petsController";
 
 
 const router = Router();
-router.get("/", PetsController.getAllPets)
-router.get("/:id", PetsController.getPet);
+const petsController = new PetsController();
 
-router.post("/create", PetsController.createPet);
-router.put("/update/:id", PetsController.updatePet); 
-router.delete("/delete/:id", PetsController.deletePet); 
+router.get("/", petsController.getAllPets)
+router.get("/:id", petsController.getPet);
+
+router.post("/create", petsController.createPet);
+router.put("/update/:id", petsController.updatePet); 
+router.delete("/delete/:id", petsController.deletePet); 
 
 export default router;
 

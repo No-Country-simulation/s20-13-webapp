@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 export enum UserRole {
   OWNER = "owner",
@@ -14,7 +14,7 @@ export interface IUser extends Document {
 
   about?: string;
   nationality?: string;
-  neighborhood?:string
+  neighborhood?: string;
   address?: string;
 
   phone?: [string];
@@ -26,7 +26,7 @@ export interface IUser extends Document {
   pets?: Schema.Types.ObjectId;
   reviews?: Schema.Types.ObjectId;
   schedule?: Schema.Types.ObjectId;
-  availability?: Schema.Types.ObjectId;
+  availability?: Types.ObjectId[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -100,11 +100,14 @@ const userSchema: Schema = new Schema<IUser>(
       ref: "Schedule",
       default: null,
     },
-    availability: {
-      type: Schema.Types.ObjectId,
-      ref: "Availability",
-      default: null,
-    },
+    //un array para tener varios horarios de disponibilidad
+    availability: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Availability",
+        default: null,
+      },
+    ],
   },
   {
     // versionado
@@ -121,7 +124,7 @@ userSchema.pre("save", function (next) {
     profilePicture: "",
     about: "",
     nationality: "",
-    neighborhood:"",
+    neighborhood: "",
     address: "",
     phone: [],
     certificate: [],

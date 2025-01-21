@@ -36,4 +36,29 @@ export class CaretakerService {
       throw new Error("Ha ocurrido un error inesperado");
     }
   }
+
+  //UPDATE caretaker
+  public async updateCaretaker(
+    id: string,
+    data: Partial<IUser>
+  ): Promise<IUser | null> {
+    try {
+      if (data && Object.keys(data).length === 0)
+        throw new Error("Los datos a actualizar son requeridos");
+      if (data.role && data.role !== UserRole.CARETAKER)
+        data.role = UserRole.CARETAKER;
+      if (!id) throw new Error("El ID del cuidador es requerido");
+
+      const updatedCaretaker = await User.findOneAndUpdate(
+        { _id: id, role: UserRole.CARETAKER },
+        { $set: data },
+        { new: true } //ultima version
+      );
+
+      return updatedCaretaker;
+    } catch (error) {
+      console.error("Error al actualizar el cuidador:", error);
+      throw new Error("Ha ocurrido un error inesperado");
+    }
+  }
 }

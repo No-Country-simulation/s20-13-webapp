@@ -12,7 +12,7 @@ export class CaretakerController {
       this.getAllCaretakersController.bind(this);
   }
 
-  //GET all caretakers
+  //GET /api/caretaker/
   public getAllCaretakersController = async (
     req: Request,
     res: Response
@@ -33,7 +33,7 @@ export class CaretakerController {
     }
   };
 
-  //GET caretaker by ID
+  //GET /api/caretaker/:id
   public getCaretakerByIdController = async (
     req: Request,
     res: Response
@@ -61,4 +61,34 @@ export class CaretakerController {
       });
     }
   };
+
+  //PATCH /api/caretaker/:id
+  public async updateCaretakerController(
+    req: Request,
+    res: Response
+  ): Promise<any> {
+    try {
+      const { id } = req.params;
+      const updatedCaretaker = await this.caretakerService.updateCaretaker(
+        id,
+        req.body
+      );
+      if (!updatedCaretaker) {
+        return res.status(404).json({
+          success: false,
+          message: "Cuidador no encontrado",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: "Cuidador actualizado con éxito",
+        data: updatedCaretaker,
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Ha ocurrido un error inesperado",
+      });
+    }
+  }
 }

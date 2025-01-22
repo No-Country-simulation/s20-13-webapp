@@ -6,6 +6,8 @@ import morgan from "morgan";
 import authRouter from "./routes/auth.router";
 import petsRouter from "./routes/pets.router";
 import caretakerRouter from "./routes/caretaker.router";
+import reviewsRouter from "./routes/reviews.router";
+
 
 config();
 
@@ -35,5 +37,6 @@ server.use((req, res, next) => {
 server.use("/api/auth", authRouter);
 server.use("/pets/", petsRouter);
 server.use("/api/caretaker", caretakerRouter); //tambien se vinculan las rutas de availability
+server.use("/reviews/", reviewsRouter);
 
 export default server;

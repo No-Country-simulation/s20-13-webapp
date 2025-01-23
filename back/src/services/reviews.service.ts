@@ -22,7 +22,7 @@ export class ReviewsService {
             if (!Types.ObjectId.isValid(id))
                 throw new Error("El id proporcionado de la calificación no es válido");
 
-            const review = await Reviews.findById(id); // <-- Añadido 'await'
+            const review = await Reviews.findById(id);
 
             if (!review) {
                 console.error("No se encontró ninguna calificación con ese id");

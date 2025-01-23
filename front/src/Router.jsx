@@ -11,7 +11,7 @@ export default function Router() {
       <Routes>
         <Route element={<AppHome />}>
           <Route path="/auth" element={<Login />} />
-
+          
         </Route>
         <Route element={<AppHome />}>
           <Route path="/" element={<Home />} />

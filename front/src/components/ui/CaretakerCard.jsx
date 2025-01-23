@@ -2,12 +2,11 @@ function CaretakerCard({ caretaker }) {
 
 
   return (
-    <div className="card" style={{ width: "15rem", margin: "10px auto" }}>
+    <div className="card" style={{ width: "18rem", margin: "15px" }}>
        <img
           className="cardh"
           src={caretaker?.profilePicture}
           alt="Imagen de paseador"
-
         />
       
       <div className="card-body">

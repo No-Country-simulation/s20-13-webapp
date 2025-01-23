@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 
 export default function Header({ user }) {
+  const navigate=useNavigate()
 
   const [active, setActive] = useState(false)
 
@@ -11,6 +13,11 @@ export default function Header({ user }) {
 
   const handleMenu = () => {
     setActive(!active)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('pawpetToken')
+    navigate('/auth')
   }
 
   return (
@@ -28,8 +35,10 @@ export default function Header({ user }) {
 
         <div className="menu">
           {user ?
-            (
+            (<>
               <h1>Hola: {user.name}</h1>
+              <button onClick={handleLogout}>Cerrar Sesión</button>
+              </>
             )
             :
             (<>

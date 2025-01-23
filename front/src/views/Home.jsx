@@ -6,12 +6,14 @@ import getCaretakers from "../api/apiCaretakers";
 import { useEffect, useState } from "react";
 export default function Home() {
   const [caretakers, setCaretakers] = useState([])
-
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchCaretakers = async () => {
+      setIsLoading(true)
       try {
         const data = await getCaretakers()
+        setIsLoading(false)
         setCaretakers(data)
       } catch (error) {
         console.error(error.message)
@@ -21,7 +23,7 @@ export default function Home() {
     fetchCaretakers()
   }, [])
 
-  console.log(caretakers)
+  
   return (
     <>
       <main className="main">
@@ -29,7 +31,8 @@ export default function Home() {
 
         <div className="positioncards">
           {
-            caretakers.length > 0 ? caretakers.map(
+            isLoading ? <h1>Cargando...</h1> :
+           caretakers && caretakers.length > 0 ? caretakers.map(
               caretaker => (
                 <CaretakerCard key={caretaker._id} caretaker={caretaker} />
               )

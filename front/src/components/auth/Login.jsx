@@ -1,7 +1,8 @@
 
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
+import api from '../../lib/axios';
+import { isAxiosError } from 'axios';
 
 export default function Login() {
 
@@ -9,15 +10,17 @@ export default function Login() {
 
     const handleLogin = async (credentials,role) => {
         try {
-            const request = await axios.post("http://localhost:3000/api/auth/login", {
+            const request = await api.post('/auth/login', {
                 credentials: credentials.credential,
                 role
             })
             localStorage.setItem('pawpetToken', request.data)
-            navigate("/home")
+            navigate("/")
 
         } catch (error) {
-            console.log(error)
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.error)
+            }
         }
     }
 

@@ -1,27 +1,34 @@
 import { Outlet } from "react-router";
 import Footer from "../components/ui/Footer";
 import Header from "../components/ui/Header";
-import axios from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import api from "../lib/axios";
+import { isAxiosError } from "axios";
+
 
 export default function AppHome() {
-
+    const [user,setUser]=useState(null)
+   
 
     useEffect(() => async () => {
-        const request = await axios("http://localhost:3000/api/auth/user", {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('pawpetToken')}`
-            }
 
-        })
-        console.log(request.data)
+        try {
+
+            const request = await api(`/auth/user`)
+            setUser(request.data)
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.error)
+            }
+        }
+
 
     }, [localStorage.getItem('pawpetToken')])
 
-
+  
     return (
         <>
-            <Header />
+            <Header user={user}/>
             <Outlet />
             <Footer />
         </>

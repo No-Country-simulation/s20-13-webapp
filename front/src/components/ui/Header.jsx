@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Header() {
+export default function Header({ user }) {
 
-  const [active,setActive]=useState(false)
+  const [active, setActive] = useState(false)
 
-  useEffect(()=>{
+  useEffect(() => {
     const menu = document.querySelector('.menu');
     menu.classList.toggle('active');
-  },[active])
+  }, [active])
 
-  const handleMenu=()=>{
+  const handleMenu = () => {
     setActive(!active)
   }
 
@@ -17,9 +17,9 @@ export default function Header() {
 
     <header>
       <div className="navbar">
-     
+
         <div className="logo" >
-          <img src="Logo.png" alt="Logo"/>
+          <img src="Logo.png" alt="Logo" />
         </div>
 
 
@@ -27,8 +27,17 @@ export default function Header() {
 
 
         <div className="menu">
-         <a href="#">Soy dueño</a>
-          <a href="#">Soy cuidador</a>
+          {user ?
+            (
+              <h1>Hola: {user.name}</h1>
+            )
+            :
+            (<>
+              <a href="#">Soy dueño</a>
+              <a href="#">Soy cuidador</a>
+            </>)
+
+          }
           <a href="#">Home</a>
           <a href="#">About</a>
           <a href="#">Services</a>

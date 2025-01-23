@@ -5,6 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import authRouter from './routes/auth.router';
 import petsRouter from './routes/pets.router';
+import	userRouter from "./routes/users.router"
 
 config()
 
@@ -26,6 +27,7 @@ server.use((req, res, next) => {
 
 //rutas 
 server.use("/api/auth", authRouter)
+server.use("/api/users", userRouter)
 server.use("/pets/", petsRouter)
 
 export default server

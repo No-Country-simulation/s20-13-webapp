@@ -117,62 +117,7 @@
 padding: 100px;
 border: solid;
 }*/
-.barrita {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10vh;
-  background-color: #f4f4f4;
-  width: 100vw;
 
-}
-
-.search-bar {
-  position: relative;
-  width: 300px;
-
-}
-
-.search-bar input[type="text"] {
-  width: 137%;
-  padding: 10px 90px 10px 15px;
-  border: 1px solid #cccccc;
-  border-radius: 25px;
-  font-size: 16px;
-  outline: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-}
-
-.search-bar button {
-  position: absolute;
-  left: 323px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: orange;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  width: 80px;
-  height: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: bold;
-
-}
-
-.search-bar button:hover {
-  background-color: brown;
-
-}
-
-.search-bar input[type="text"]:hover {
-  border: 1px solid orange;
-}
 
 /*//mapa////*/
 .mapita {
@@ -258,50 +203,136 @@ border: solid;
   border: none;
 }
 
-/* Search bar styling */
-.barrita {
+/* ------------------------------------Search bar styling----------------------------------------- */
+
+.search-bar-container {
+  text-align: center;
+  margin: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10vh;
-  background-color: #f4f4f4;
-  padding: 10px 20px;
+  align-content: center;
 }
 
 .search-bar {
   position: relative;
-  width: 300px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  border: solid 2px #6980b1;
+  border-radius: 25px;
+  max-width: 600px;
+  padding-right: 100px;
 }
 
 .search-bar input[type="text"] {
-  width: 100%;
-  padding: 10px 90px 10px 15px;
-  border: 1px solid #cccccc;
-  border-radius: 25px;
+  color: #595959;
+  width: 70%; 
+  background: none;
+  padding: 10px 15px 10px 45px;
+  margin: 0 10px 0 0;
+  border: none;
+  border-radius: 0px;
+  box-shadow: none;
   font-size: 16px;
   outline: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.search-bar input:first-child{
+  background: url('../public/hand-platter.png') no-repeat 8px;
+}
+
+.search-bar input:nth-child(2){
+  background: url('../public/map-pin.png') no-repeat 8px;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
 .search-bar button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  padding: 15px 15px;
+  font-size: 16px;
+  background-color: #f39c12;
   color: white;
   border: none;
-  border-radius: 50px;
-  width: 80px;
-  height: 30px;
+  border-radius: 25px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
 }
 
 .search-bar button:hover {
   background-color: brown;
 }
+
+/* Sugerencias */
+.suggestions {
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  display: none;
+}
+
+.suggestions.show {
+  display: block;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 768px) {
+  .search-bar {
+    max-width: 100%;
+    padding-right: 20px; 
+  }
+
+  .search-bar input[type="text"] {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .search-bar button {
+    width: 50px;
+    font-size: 14px;
+    padding: 10px;
+    right: 10px;
+  }
+
+  .suggestions {
+    width: 90%;
+    left: 5%;
+  }
+}
+
+
+
+/* ------------------------------------------------------------------------------------ */
 
 /* Responsive styles */
 @media (max-width: 768px) {

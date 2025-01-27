@@ -1,109 +1,92 @@
-import { Response, Request } from "express";
-import { User } from "../models/Users.model";
+import { Request, Response } from "express";
+import UserService from "../services/users.service"
+import cloudinary from "../config/cloudinary";
 
 class UserController {
 
-    static profile= async (req: Request, res: Response) => {
+    static async uploadImage(req: Request, res: Response) {
+
+
+        const file=req.file
+        if(!file){
+            res.status(400).json({error:"No se ha subido ninguna imagen"})
+            return
+        }
+
+      
+         try {
+
+            cloudinary.uploader.upload(file, {  resource_type: "raw" }, async function (error, result) {
+                if (error) {
+                    const error = new Error("Hubo un error al subir la imágen")
+                    res.status(500).json({ error: error.message })
+                    return
+                }
+                if (result && req.user) {
+                    req.user.profilePicture=result.secure_url
+                    await req.user.save()
+                    res.json({ image: result.secure_url })
+                }
+            })
+           
+         } catch (error) {
+            res.status(404).json({error:"Hubo un error al subir la imagen"})
+         }
         
-        try {
-          
-            if (!req.user) {
-                const error = new Error("No existe un usuario con ese id")
-                res.status(404).json({ error: error.message })
-                return
-            }
-            res.status(200).json(req.user)
-
-        } catch (err) {
-            const error = new Error("Hubo un error al buscar un usuario")
-            res.status(400).json({ error: error.message })
-            return
-        }
     }
-
-    static getById = async (req: Request, res: Response) => {
-
-        const { id } = req.params
-        try {
-            const user = await User.findById(id)
-            if (!user) {
-                const error = new Error("No existe un usuario con ese id")
-                res.status(404).json({ error: error.message })
-                return
-            }
-            res.status(200).json(user)
-
-        } catch (err) {
-            const error = new Error("Hubo un error al buscar un usuario")
-            res.status(400).json({ error: error.message })
-            return
-        }
-    }
-
-    static getAll = async (req: Request, res: Response) => {
-
-            const filters=req.query
-            
-        try {
-            const users = await User.find(filters)
-            if (users.length === 0) {
-                const error = new Error("No se econtró ningún usuario")
-                res.status(404).json({ error: error.message })
-                return
-            }
-            res.status(200).json(users)
-
-        } catch (err) {
-            const error = new Error("Hubo un error al buscar los usuarios")
-            res.status(400).json({ error: error.message })
-            return
-        }
-    }
-    static update = async (req: Request, res: Response) => {
-
-        const {id}=req.params
-        const data=req.body
-        
-    try {
-        const user=await User.findByIdAndUpdate(id,data,{
-            new:true,runValidators:true
-        })
-        if(!user) {
-            const error = new Error("No se econtró ningún usuario")
-            res.status(404).json({ error: error.message })
-            return
-        }
-        res.status(200).json("Datos Actualizados Correctamente")
-
-    } catch (err) {
-        const error = new Error("Hubo un error al actualizar al usuario")
-        res.status(400).json({ error: error.message })
-        return
-    }
-}
-static delete = async (req: Request, res: Response) => {
-
-    const { id } = req.params
-    try {
-        const user = await User.findByIdAndDelete(id)
-        if (!user) {
-            const error = new Error("No existe un usuario con ese id")
-            res.status(404).json({ error: error.message })
-            return
-        }
-        
-        res.status(200).json("Usuario Eliminado")
-
-    } catch (err) {
-        const error = new Error("Hubo un error al querer eliminar al usuario")
-        res.status(400).json({ error: error.message })
-        return
-    }
-}
-
-
     
+    static async profile(req: Request, res: Response) {
+        try {
+            if (!req.user) {
+                res.status(404).json({ error: "No existe un usuario con ese id" });
+                return;
+            }
+            res.status(200).json(req.user);
+        } catch (err) {
+            res.status(400).json({ error: "Hubo un error al buscar un usuario" });
+        }
+    }
+
+    static async getById(req: Request, res: Response) {
+        const { id } = req.params;
+        try {
+            const user = await UserService.getUserById(id);
+            res.status(200).json(user);
+        } catch (err: any) {
+            res.status(404).json({ error: "Hubo un error al buscar un usuario" });
+        }
+    }
+
+    static async getAll(req: Request, res: Response) {
+        const filters = req.query;
+        try {
+            const users = await UserService.getAllUsers(filters);
+            res.status(200).json(users);
+        } catch (err: any) {
+            res.status(404).json({ error: "Hubo un error al buscar los usuarios" });
+        }
+    }
+
+    static async update(req: Request, res: Response) {
+        const { id } = req.params;
+        const data = req.body;
+        try {
+            const updatedUser = await UserService.updateUser(id, data);
+            res.status(200).json({ message: "Datos actualizados correctamente", user: updatedUser });
+        } catch (err: any) {
+            res.status(400).json({ error: "Hubo un error al actualizar al usuario" });
+        }
+    }
+
+    static async delete(req: Request, res: Response) {
+        const { id } = req.params;
+        try {
+            await UserService.deleteUser(id);
+            res.status(200).json({ message: "Usuario eliminado" });
+        } catch (err: any) {
+            res.status(404).json({ error: "Hubo un error al eliminar al usuario" });
+        }
+    }
 }
 
-
-export default UserController
+export default UserController;

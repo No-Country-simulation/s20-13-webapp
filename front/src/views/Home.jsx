@@ -1,48 +1,18 @@
 
-import CaretakerCard from "../components/ui/CaretakerCard";
+
 import SearchBar from "../components/ui/SearchBar";
 import CaretakerReviewCard from "../components/ui/CaretakerReviewCard";
-import getCaretakers from "../api/apiCaretakers";
-import { useEffect, useState } from "react";
+import Caretakers from "../components/ui/Caretakers";
 export default function Home() {
-  const [caretakers, setCaretakers] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    const fetchCaretakers = async () => {
-      setIsLoading(true)
-      try {
-        const data = await getCaretakers()
-        setIsLoading(false)
-        setCaretakers(data)
-      } catch (error) {
-        console.error(error.message)
-      }
-    }
 
-    fetchCaretakers()
-  }, [])
-
-  
   return (
     <>
       <main className="main">
         <SearchBar />
 
-        <div className="positioncards">
-          {
-            isLoading ? <h1>Cargando...</h1> :
-           caretakers && caretakers.length > 0 ? caretakers.map(
-              caretaker => (
-                <CaretakerCard key={caretaker._id} caretaker={caretaker} />
-              )
-            ):
-            ( <h1>No hay cuidadores disponibles</h1>)
-       }
-
-
-
-        </div>
+        <Caretakers />
+       
 
         <div className="mapita">
           <h1 className="titulo">¿Necesitas un paseador?Descubre el lugar más cercano a tu hogar</h1>

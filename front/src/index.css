@@ -241,11 +241,11 @@ border: solid;
   position: relative;
 }
 .search-bar input:first-child{
-  background: url('../public/map-pin.png') no-repeat 8px;
+  background: url('../public/hand-platter.png') no-repeat 8px;
 }
 
 .search-bar input:nth-child(2){
-  background: url('../public/hand-platter.png') no-repeat 8px;
+  background: url('../public/map-pin.png') no-repeat 8px;
 }
 .search-bar input:focus {
   outline: none;

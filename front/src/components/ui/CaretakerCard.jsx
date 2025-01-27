@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function CaretakerCard({ caretaker }) {
 
 
@@ -35,9 +37,9 @@ function CaretakerCard({ caretaker }) {
         >
           $6.000
         </h1>
-        <a  className="btn btn-primary botn d-block mx-auto">
+        <Link to={`/caretaker/${caretaker._id}`} className="btn btn-primary botn d-block mx-auto">
           Contactar Servicio
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@
     
     
     <div class="contenedorimagenytexto">
-    <img src="./imagenes/Pixabay-4357790.png" width="500px" height="400px" alt="">
+    <img src="./imagenes/Pixabay-4357790.png" width="500px" height="400px" alt=""/>
     
 
     <p class="asi2">

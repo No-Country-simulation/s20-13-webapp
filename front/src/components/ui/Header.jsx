@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useUser } from '../../hooks/useUser';
 
-export default function Header({ user }) {
-  const navigate=useNavigate()
+export default function Header({user}) {
+  const {logout}=useUser()
+  const navigate = useNavigate()
 
   const [active, setActive] = useState(false)
 
@@ -16,7 +18,7 @@ export default function Header({ user }) {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('pawpetToken')
+    logout()
     navigate('/auth')
   }
 
@@ -25,9 +27,9 @@ export default function Header({ user }) {
     <header>
       <div className="navbar">
 
-        <div className="logo" >
-          <img src="Logo.png" alt="Logo" />
-        </div>
+        <Link to={"/"} className="logo" >
+          <img src="./Logo.png" alt="Logo" />
+        </Link>
 
 
         <button className="hamburger" onClick={handleMenu}>&#9776;</button>
@@ -36,21 +38,21 @@ export default function Header({ user }) {
         <div className="menu">
           {user ?
             (<>
-              <h1>Hola: {user.name}</h1>
-              <button onClick={handleLogout}>Cerrar Sesión</button>
-              </>
+              <h1 className='menu-h1'>Hola: {user.name}</h1>
+              <button className='menu-btn' onClick={handleLogout}>Cerrar Sesión</button>
+            </>
             )
             :
             (<>
-              <a href="#">Soy dueño</a>
-              <a href="#">Soy cuidador</a>
+              <Link to={"/auth"}>Iniciar Sesión</Link>
+              <Link to={"/auth"}>Home</Link>
+              <Link to={"/auth"}>About</Link>
+              <Link to={"/auth"}>Services</Link>
+              <Link to={"/auth"}>Contact</Link>
             </>)
 
           }
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Contact</a>
+
         </div>
       </div>
 

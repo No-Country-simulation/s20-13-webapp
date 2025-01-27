@@ -1,0 +1,182 @@
+{
+  "pets": [
+    {
+      "name": "Luna",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Labrador Retriever",
+      "age": 3,
+      "description": "Labrador amigable y energético",
+      "medicalHistory": ["Chequeo anual 2024", "Vacunas actualizadas"],
+      "user": "65a6b1234c67d89e01f23456"
+    },
+    {
+      "name": "Milo",
+      "image": ["", ""],
+      "species": "Gato",
+      "breed": "Persa",
+      "age": 5,
+      "description": "Gato persa tranquilo y cariñoso",
+      "medicalHistory": ["Limpieza dental 2024"],
+      "user": "65a6b1234c67d89e01f23457"
+    },
+    {
+      "name": "Rocky",
+      "species": "Perro",
+      "breed": "Pastor Alemán",
+      "age": 2,
+      "description": "Perro guardián bien entrenado",
+      "user": "65a6b1234c67d89e01f23458"
+    },
+    {
+      "name": "Bella",
+      "image": [""],
+      "species": "Gato",
+      "breed": "Siamés",
+      "age": 4,
+      "description": "Gato siamés juguetón",
+      "user": "65a6b1234c67d89e01f23459"
+    },
+    {
+      "name": "Max",
+      "species": "Perro",
+      "breed": "Golden Retriever",
+      "age": 1,
+      "description": "Cachorro lleno de energía",
+      "medicalHistory": ["Vacunas iniciales", "Desparasitación"],
+      "user": "65a6b1234c67d89e01f23460"
+    },
+    {
+      "name": "Oliver",
+      "image": [""],
+      "species": "Gato",
+      "breed": "Maine Coon",
+      "age": 6,
+      "description": "Majestuoso Maine Coon",
+      "user": "65a6b1234c67d89e01f23461"
+    },
+    {
+      "name": "Charlie",
+      "species": "Perro",
+      "breed": "Caniche",
+      "age": 4,
+      "description": "Caniche inteligente y elegante",
+      "user": "65a6b1234c67d89e01f23462"
+    },
+    {
+      "name": "Lucy",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Beagle",
+      "age": 2,
+      "description": "Beagle curiosa y amigable",
+      "user": "65a6b1234c67d89e01f23463"
+    },
+    {
+      "name": "Leo",
+      "species": "Gato",
+      "breed": "Azul Ruso",
+      "age": 3,
+      "description": "Elegante gato azul ruso",
+      "medicalHistory": ["Chequeo anual 2024"],
+      "user": "65a6b1234c67d89e01f23464"
+    },
+    {
+      "name": "Daisy",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Shih Tzu",
+      "age": 5,
+      "description": "Dulce perro de regazo",
+      "user": "65a6b1234c67d89e01f23465"
+    },
+    {
+      "name": "Simba",
+      "species": "Gato",
+      "breed": "Atigrado Naranja",
+      "age": 2,
+      "description": "Gato atigrado naranja aventurero",
+      "user": "65a6b1234c67d89e01f23466"
+    },
+    {
+      "name": "Cooper",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Pastor Australiano",
+      "age": 3,
+      "description": "Muy activo e inteligente",
+      "user": "65a6b1234c67d89e01f23467"
+    },
+    {
+      "name": "Lily",
+      "species": "Gato",
+      "breed": "Ragdoll",
+      "age": 4,
+      "description": "Gato Ragdoll gentil",
+      "medicalHistory": ["Limpieza dental 2024"],
+      "user": "65a6b1234c67d89e01f23468"
+    },
+    {
+      "name": "Bailey",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Yorkshire Terrier",
+      "age": 6,
+      "description": "Yorkshire pequeño pero valiente",
+      "user": "65a6b1234c67d89e01f23469"
+    },
+    {
+      "name": "Sombra",
+      "species": "Gato",
+      "breed": "Pelo Corto Negro",
+      "age": 3,
+      "description": "Gato negro misterioso",
+      "user": "65a6b1234c67d89e01f23470"
+    },
+    {
+      "name": "Molly",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Cavalier King Charles",
+      "age": 4,
+      "description": "Compañera dulce y gentil",
+      "user": "65a6b1234c67d89e01f23471"
+    },
+    {
+      "name": "Tigre",
+      "species": "Gato",
+      "breed": "Bengalí",
+      "age": 2,
+      "description": "Gato bengalí energético",
+      "medicalHistory": ["Vacunas actualizadas"],
+      "user": "65a6b1234c67d89e01f23472"
+    },
+    {
+      "name": "Zeus",
+      "image": [""],
+      "species": "Perro",
+      "breed": "Rottweiler",
+      "age": 3,
+      "description": "Leal y protector",
+      "user": "65a6b1234c67d89e01f23473"
+    },
+    {
+      "name": "Coco",
+      "species": "Perro",
+      "breed": "Cocker Spaniel",
+      "age": 5,
+      "description": "Perro familiar amigable",
+      "medicalHistory": ["Chequeo anual 2024"],
+      "user": "65a6b1234c67d89e01f23474"
+    },
+    {
+      "name": "Misty",
+      "image": [""],
+      "species": "Gato",
+      "breed": "Scottish Fold",
+      "age": 4,
+      "description": "Adorable Scottish Fold con orejas únicas",
+      "user": "65a6b1234c67d89e01f23475"
+    }
+  ]
+}

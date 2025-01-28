@@ -45,9 +45,16 @@ Integración con Mercado Pago para que tu dinero esté siempre seguro.
 
 Estructura MVC (modular)
 
-### **Equipo, Roles y Stack**  
----agregar datos de todos---
+### **Equipo y Roles **  
 
+|         Nombre        |    Rol    |
+|:---------------------:|:---------:|
+|     Federico Crer     | Front End |
+|      Ailén Franco     |  Back End |
+|     Tomás Ballesty    |  Back End |
+|      Marcos Soria     |  Back End |
+| María Agustina Cuello |   UX/UI   |
+|    Florencia Viale    |     QA    |
 
 ## 📬 **Tecnología para Reuniones y Comunicación**  
 ---  
@@ -66,20 +73,22 @@ Estructura MVC (modular)
   🗂️ **Kanban** 
 
 Link  a nuestro tablero https://github.com/orgs/No-Country-simulation/projects/238
+
 ---  
 
 ## 📈 Planificación del MVP
 
 Desde la concepción de PawPet dejamos establecidas las historias de usuario en las que se centraría la elaboración de este MVP, estableciendo los criterios de aceptación de los mismos y los riesgos asociados a cada historia de usuario. 
 Se plasmó asimismo el flujo de acción de cada usuario y la división de las tareas a desempeñar en cada sprint.
-Link a nuestro Figma   ----colocar link----
+Link a nuestro Figma: https://www.figma.com/board/vFXjNDyoSJkdmgDC9MBq4H/App-de-mascotas?node-id=128-763&t=dOTocm3LNKE63hHU-0
 
 ---
 
 ## 📔 Diseño
 
 ---Insertar imágenes---
----link a diseño----
+
+Link al Figma de diseño: https://www.figma.com/design/YcXI1tU2yNPxwpex3VZUhd/App-Para-Mascotas?node-id=0-1&p=f&t=HEmeSsWg70JLHpQY-0
 
 ## 🔍 **Compromiso con la Calidad**  
 ---  
@@ -114,4 +123,5 @@ Esto garantiza fiabilidad, eficiencia, seguridad, ahorro de costos y reducción 
 - **🔄 Pruebas de Regresión:**  
   Aseguran el funcionamiento tras actualizaciones y correcciones de errores.
 
-  Link al repositorio de pruebas ---link qase---
+  Link al repositorio de pruebas: https://app.qase.io/project/PAWPET
+

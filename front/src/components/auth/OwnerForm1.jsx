@@ -37,7 +37,7 @@ export default function OwnerForm1({user,nextForm}) {
     formdata.append("image", file)
 
     try {
-      const request = await api.post("/users/image", formdata)
+      const request = await api.post(`/users/${user._id}/image`, formdata)
       console.log(request)
     } catch (error) {
       if (isAxiosError(error) && error.response) {

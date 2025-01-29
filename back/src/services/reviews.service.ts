@@ -72,9 +72,10 @@ export class ReviewsService {
                 throw new Error("No se encontró ningun usuario con ese id");
             }
 
-            const newReview = new Reviews(data);
-            newReview.user = id;
-            await newReview.save();
+            const newReview = new Reviews(data)
+            newReview.user = id
+            await newReview.save()
+            
             return newReview;
         } catch (error: any) {
             console.error("Error al crear la calificación", error);

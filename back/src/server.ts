@@ -32,7 +32,7 @@ server.use((req, res, next) => {
 
 //rutas 
 server.use("/api/auth", authRouter)
-server.use("/pets/", petsRouter)
+server.use("/api/pets", petsRouter)
 server.use("/api/users", userRouter)
 server.use("/api/reviews", reviewsRouter)
 

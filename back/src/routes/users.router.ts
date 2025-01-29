@@ -10,7 +10,7 @@ router.get("/profile",authenticate,UserController.profile)
 router.put("/:id",UserController.update)
 router.get("/",UserController.getAll)
 router.delete("/:id",authenticate,UserController.delete)
-router.post("/image",authenticate,upload ,UserController.uploadImage)
+router.post("/:id/image",upload ,UserController.uploadImage)
 
 
 export default router

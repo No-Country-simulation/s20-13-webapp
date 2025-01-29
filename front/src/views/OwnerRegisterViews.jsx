@@ -12,7 +12,7 @@ export default function OwnerRegisterViews() {
     const params = useParams()
     const id = params.id
     const [user, setUser] = useState(null)
-    const [currentForm, setCurrentForm] = useState(1);
+    const [currentForm, setCurrentForm] = useState(3);
 
     const nextForm = () => {
         setCurrentForm(currentForm + 1);
@@ -40,7 +40,7 @@ export default function OwnerRegisterViews() {
         <>
             {currentForm === 1 && <OwnerForm1 user={user} nextForm={nextForm} />}
             {currentForm === 2 && <OwnerForm2  prevForm={prevForm} nextForm={nextForm} />}
-            {currentForm === 3 && <OwnerForm3 prevForm={prevForm} />}
+            {currentForm === 3 && <OwnerForm3 id={id} prevForm={prevForm} />}
             {currentForm === 4 && <RegisterCongratulations prevForm={prevForm} />}
         </>
     )

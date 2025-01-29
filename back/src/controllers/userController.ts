@@ -1,40 +1,46 @@
 import { Request, Response } from "express";
 import UserService from "../services/users.service"
 import cloudinary from "../config/cloudinary";
+import path from "path";
 
 class UserController {
 
     static async uploadImage(req: Request, res: Response) {
 
-     
-        const file=req.file
-        if(!file){
-            res.status(400).json({error:"No se ha subido ninguna imagen"})
+      
+        const file = req.file
+        if (!file) {
+            res.status(400).json({ error: "No se ha subido ninguna imagen" })
             return
         }
+        const extension = path.extname(file).toLowerCase()
+        const uniqueFilename = `profile_${Date.now()}${extension}`
+        try {
 
-      
-         try {
-
-            cloudinary.uploader.upload(file, {  resource_type: "raw" }, async function (error, result) {
+            const user=await UserService.getUserById(req.params.id)
+            
+            cloudinary.uploader.upload(file, {
+                public_id: uniqueFilename, 
+                resource_type: "image" 
+            }, async function (error, result) {
                 if (error) {
                     const error = new Error("Hubo un error al subir la imágen")
                     res.status(500).json({ error: error.message })
                     return
                 }
-                if (result && req.user) {
-                    req.user.profilePicture=result.secure_url
-                    await req.user.save()
+                if (result && user) {
+                    user.profilePicture = result.secure_url
+                    await user.save()
                     res.json({ image: result.secure_url })
                 }
             })
-           
-         } catch (error) {
-            res.status(404).json({error:"Hubo un error al subir la imagen"})
-         }
-        
+
+        } catch (error) {
+            res.status(404).json({ error: "Hubo un error al subir la imagen" })
+        }
+
     }
-    
+
     static async profile(req: Request, res: Response) {
         try {
             if (!req.user) {

@@ -51,7 +51,7 @@ const petsSchema = new Schema<IPets>(
     //relaciones con modelos
     user: {
       type: Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
       required: [true, "User is required in Data Base Model"],
     },
   },

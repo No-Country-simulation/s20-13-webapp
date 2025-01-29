@@ -6,11 +6,14 @@ declare global {
     namespace Express {
         interface Request {
             file?: string
+            body?: any
         }
     }
 }
 
 export const upload = async (req: Request, res: Response, next: NextFunction) => {
+
+    
 
     const form=formidable({multiples:false})
 
@@ -20,6 +23,8 @@ export const upload = async (req: Request, res: Response, next: NextFunction) =>
                 res.status(400).json({error:"Hubo un error al subir la imagen"})
                 return
             }
+            req.body = Object.fromEntries(Object.entries(fields).map(([key, value]) => [key, value?.[0]]));
+
             if(files.image){
             req.file=files.image[0].filepath 
             next()

@@ -1,13 +1,16 @@
 import { Types } from "mongoose";
 import { IPets, Pets } from "../models/Pets.model";
+import { User } from "../models/Users.model";
 
-export class PetsService{
+export class PetsService {
 
 
-    public async getAllPets(filters:any): Promise<IPets[]>{
+    public async getAllPetsByUser(userId: string): Promise<IPets[]> {
+
+
         try {
-            const pets = await Pets.find(filters);
-            if(pets.length === 0) {
+            const pets = await Pets.find({ user: userId })
+            if (pets.length === 0) {
                 throw new Error("No se encontró ninguna mascota");
 
             }
@@ -23,12 +26,12 @@ export class PetsService{
 
     public async getPetById(id: string): Promise<IPets | null> {
         try {
-            if(!id) throw new Error("El ID de la mascota es requerido");
-            if(!Types.ObjectId.isValid(id)) throw new Error("El ID de mascota es inválido");
+            if (!id) throw new Error("El ID de la mascota es requerido");
+            if (!Types.ObjectId.isValid(id)) throw new Error("El ID de mascota es inválido");
 
             const pet = await Pets.findById(id);
 
-            if(!pet){
+            if (!pet) {
                 throw new Error("No se encontró ninguna mascota con ese id");
 
             }
@@ -43,9 +46,16 @@ export class PetsService{
 
 
     public async createPet(petData: any): Promise<IPets> {
+
+
         try {
-            const newPet = new Pets(petData); 
-            await newPet.save();
+            const user = await User.findById(petData.user);
+            if (!user) {
+                throw new Error("El ID de mascota es inválido")
+            }
+            const newPet = new Pets(petData);
+            user.pets?.push(newPet.id)  
+            await Promise.allSettled([newPet.save(),user.save()])
             return newPet;
         } catch (error) {
             console.error("Error inesperado al crear la mascota:", error);
@@ -54,19 +64,19 @@ export class PetsService{
     }
 
 
-    public async updatePet(id:string, data: any): Promise<IPets | null>{
+    public async updatePet(id: string, data: any): Promise<IPets | null> {
         try {
-            if(!id) throw new Error("El id de la mascota es requerido");
-            if(!Types.ObjectId.isValid(id)) throw new Error("Id de mascota inválido");
+            if (!id) throw new Error("El id de la mascota es requerido");
+            if (!Types.ObjectId.isValid(id)) throw new Error("Id de mascota inválido");
 
 
             const updatedPet = await Pets.findByIdAndUpdate(id, data, {
                 new: true,
-                runValidators:true,
+                runValidators: true,
             });
 
 
-            if(!updatedPet){
+            if (!updatedPet) {
                 throw new Error("No se encontró ninguna mascota con ese id");
 
             }
@@ -80,21 +90,21 @@ export class PetsService{
 
     }
 
-    public async deletePet(id:string): Promise<IPets | null>{
+    public async deletePet(id: string): Promise<IPets | null> {
         try {
-            if(!id) throw new Error("El id de la mascota es requerido");
-            if(!Types.ObjectId.isValid(id)) throw Error("El ID de la mascota es inválido");
+            if (!id) throw new Error("El id de la mascota es requerido");
+            if (!Types.ObjectId.isValid(id)) throw Error("El ID de la mascota es inválido");
 
             const deletedPet = await Pets.findByIdAndDelete(id);
 
-            if(!deletedPet){
+            if (!deletedPet) {
                 throw new Error("No se encontró ninguna mascota con ese id");
 
             }
             return deletedPet;
         } catch (error) {
             console.error("Error al eliminar una mascota");
-            throw new Error ("Hubo un error al eliminar la mascota");
+            throw new Error("Hubo un error al eliminar la mascota");
         }
     }
 

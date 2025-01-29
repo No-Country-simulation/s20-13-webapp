@@ -23,8 +23,8 @@ export interface IUser extends Document {
   role?: UserRole;
   isActive?: boolean;
 
-  pets?: Schema.Types.ObjectId;
-  reviews?: Schema.Types.ObjectId;
+  pets?: Schema.Types.ObjectId[];
+  reviews?: Schema.Types.ObjectId[];
   schedule?: Schema.Types.ObjectId;
   availability?: Types.ObjectId[];
 
@@ -85,15 +85,16 @@ const userSchema: Schema = new Schema<IUser>(
       default:false,
     },
     // relaciones con modelos
-    pets: {
-      type: Schema.Types.ObjectId,
-      ref: "Pets",
-      default: null,
+    pets: { 
+      type: [Schema.Types.ObjectId], 
+      ref: "Pets", 
+      default: [] 
     },
+
     reviews: {
-      type: Schema.Types.ObjectId,
+      type:[ Schema.Types.ObjectId],
       ref: "Reviews",
-      default: null,
+      default: [],
     },
     schedule: {
       type: Schema.Types.ObjectId,
@@ -128,8 +129,8 @@ userSchema.pre("save", function (next) {
     address: "",
     phone: [],
     certificate: [],
-    pets: null,
-    reviews: null,
+    pets: [],
+    reviews: [],
     schedule: null,
     availability: null,
   };

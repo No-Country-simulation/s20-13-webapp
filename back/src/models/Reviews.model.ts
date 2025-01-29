@@ -4,7 +4,7 @@ export interface IReviews extends Document {
   comment: string;
   rating: number;
 
-  user: Schema.Types.ObjectId; //caretaker y owner
+  user:Schema.Types.ObjectId ; //caretaker y owner
 
   createdAt: Date;
   updatedAt: Date;
@@ -24,7 +24,7 @@ const reviewsSchema = new Schema<IReviews>(
     //relaciones con modelos
     user: {
       type: Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
       required: [true, "User is required in Data Base Model"],
     },
   },

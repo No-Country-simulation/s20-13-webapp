@@ -6,23 +6,24 @@ import getCaretakers from "../../api/apiCaretakers"
 export default function Caretakers() {
     const [caretakers, setCaretakers] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [filters,setFilters]=useState({})
+     const [filters,setFilters]=useState({isActive:true})
 
-    const updateFilter = (key, value) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [key]: value,
-        }));
-    };
+     const updateFilter = (key, value) => {
+         setFilters((prevFilters) => ({
+             ...prevFilters,
+             [key]: value,
+         }));
+     };
 
     useEffect(() => {
 
-        console.log(filters)
+    
         const fetchCaretakers = async () => {
             setIsLoading(true)
             try {
-                const data = await getCaretakers(filters|| {})
+                const data = await getCaretakers(filters || {})
                 setIsLoading(false)
+            
                 setCaretakers(data)
             } catch (error) {
                 console.error(error.message)
@@ -32,6 +33,9 @@ export default function Caretakers() {
             fetchCaretakers();
         
     }, [filters])
+
+    
+    
 
     return (
         <>

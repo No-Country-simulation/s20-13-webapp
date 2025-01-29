@@ -39,7 +39,7 @@ class AuthController {
             }
 
             const token = generateJWT({ id: user._id })
-            res.status(200).json(token)
+            res.status(200).json({token, user})
 
 
 

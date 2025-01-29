@@ -7,7 +7,7 @@ const router=Router()
 
 router.get("/:id",UserController.getById)
 router.get("/profile",authenticate,UserController.profile)
-router.put("/:id",authenticate,UserController.update)
+router.put("/:id",UserController.update)
 router.get("/",UserController.getAll)
 router.delete("/:id",authenticate,UserController.delete)
 router.post("/image",authenticate,upload ,UserController.uploadImage)

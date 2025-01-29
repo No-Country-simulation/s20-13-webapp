@@ -1,7 +1,10 @@
 import { Link } from "react-router";
+import { useUser } from "../../hooks/useUser";
 
 function CaretakerCard({ caretaker }) {
+  const {user}=useUser()
 
+  const linkTo=user ? `/caretaker/${caretaker._id}` : "/auth"
 
   return (
     <div className="card" style={{ width: "18rem", margin: "15px" }}>
@@ -23,7 +26,7 @@ function CaretakerCard({ caretaker }) {
           </a>
         </div>
         <h3 className="card-title text-center mt-3">{caretaker.name} {caretaker.lastName}</h3>
-        <h5 className="card-title text-center mt-3">{caretaker.role}</h5>
+        
         <p className="card-text text-center">
           {caretaker.about}
         </p>
@@ -37,8 +40,8 @@ function CaretakerCard({ caretaker }) {
         >
           $6.000
         </h1>
-        <Link to={`/caretaker/${caretaker._id}`} className="btn btn-primary botn d-block mx-auto">
-          Contactar Servicio
+        <Link to={linkTo} className="btn btn-primary botn d-block mx-auto">
+         { user ? "Contactar Servicio" : "Inicia Sesion para contactar"}
         </Link>
       </div>
     </div>

@@ -43,21 +43,28 @@ export class ReviewsController {
   public async getReviewsByUserId(req: Request, res: Response): Promise<void> {
     try {
       const userId = req.params.userId;
+  
+      if (!userId) {
+        res.status(400).json({ message: "El ID del usuario es requerido" });
+        return;
+      }
+  
       const reviews = await this.reviewsService.getReviewsByUserId(userId);
       res.status(200).json(reviews);
-    } catch (error: any) {
-      console.error("Error al obtener las calificaciones por usuario", error.message);
-      res.status(500).json({ message: error.message });
+    } catch (err: any) {
+      console.error("Error al obtener las calificaciones por usuario:",err.message);
+      const error=new Error("Error al obtener las calificaciones por usuario");
+      res.status(404).json({ error: error.message });
     }
   }
 
 
-
   public async createReview(req: Request, res: Response): Promise<void> {
     const reviewData = req.body;
+    const { id } = req.params;
 
     try {
-      const newReview = await this.reviewsService.createReview(reviewData);
+      const newReview = await this.reviewsService.createReview(reviewData,id);
       res.status(201).json("Calificación creada con éxito");
     } catch (error: any) {
       res.status(400).json({ error: error.message });

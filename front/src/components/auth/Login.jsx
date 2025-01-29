@@ -10,13 +10,19 @@ export default function Login() {
 
     const handleLogin = async (credentials, role) => {
         try {
-            const request = await api.post('/auth/login', {
+            const {data} = await api.post('/auth/login', {
                 credentials: credentials.credential,
                 role
             })
-            localStorage.setItem('pawpetToken', request.data)
-            navigate("/")
-            window.location.reload()
+            const token=data.token
+            
+            if(data.user.isActive){
+                localStorage.setItem('pawpetToken',token)
+                navigate("/")
+                window.location.reload()
+            }else{
+                navigate(`/auth/register/${role}/${data.user._id}`)
+            }
 
         } catch (error) {
             if (isAxiosError(error) && error.response) {
@@ -50,7 +56,7 @@ export default function Login() {
                         <div className="button-container">
                             <button className="google-button" style={{ borderRadius: "10px" }}>
                                 <GoogleLogin
-                                    onSuccess={(credentials) => handleLogin(credentials, "caretaker")} onError={() => console.log('Error')} />
+                                    onSuccess={(credentials) => handleLogin(credentials, "owner")} onError={() => console.log('Error')} />
 
                             </button>
 

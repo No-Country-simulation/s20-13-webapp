@@ -6,7 +6,7 @@ class UserController {
 
     static async uploadImage(req: Request, res: Response) {
 
-
+     
         const file=req.file
         if(!file){
             res.status(400).json({error:"No se ha subido ninguna imagen"})

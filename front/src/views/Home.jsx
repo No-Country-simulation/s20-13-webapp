@@ -1,8 +1,9 @@
 
 
 import SearchBar from "../components/ui/SearchBar";
-import CaretakerReviewCard from "../components/ui/CaretakerReviewCard";
+import CaretakerReviewCard from "../components/ui/CaretakerCardReview";
 import Caretakers from "../components/ui/Caretakers";
+import CaretakerCardReview from "../components/ui/CaretakerCardReview";
 export default function Home() {
 
 
@@ -24,13 +25,13 @@ export default function Home() {
 
 
         <h1 className="titulo">¿Qué dicen nuestros clientes?</h1>
-
+{/* 
         <div className="positioncards">
           <div className="container mt-5 mt-55">
-            <CaretakerReviewCard />
+             <CaretakerCardReview />
 
           </div>
-        </div>
+        </div> */}
 
         <h1 className="titulo">¿Qué dicen las mascotas?</h1>
         <div className="ftmascotas">

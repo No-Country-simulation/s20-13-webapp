@@ -37,37 +37,43 @@ export class ReviewsService {
 
     public async getReviewsByUserId(userId: string): Promise<IReviews[]> {
         try {
-            if (!userId) throw new Error("El id del usuario es requerido");
-            if (!Types.ObjectId.isValid(userId))
-                throw new Error("El id proporcionado del usuario no es válido");
-
-            const reviews = await Reviews.find({ user: userId });
-            if (reviews.length === 0) {
-                throw new Error("No se encontraron calificaciones para este usuario");
-            }
-            return reviews;
+  
+          if (!Types.ObjectId.isValid(userId)) {
+            throw new Error("El ID proporcionado del usuario no es válido");
+          }
+      
+       
+          const reviews = await Reviews.find({ user: userId }).populate({
+            path: "user",
+            select: "name lastName profilePicture",
+          });
+      
+       
+          if (reviews.length === 0) {
+            throw new Error("No se encontraron calificaciones para este usuario");
+          }
+      
+          return reviews;
         } catch (error: any) {
-            console.error(
-                "Error al obtener las calificaciones por usuario",
-                error.message
-            );
-            throw new Error("Hubo un error al buscar las calificaciones por usuario");
+          console.error("Error al obtener las calificaciones por usuario:", error.message);
+          throw new Error(error.message || "Error interno del servidor");
         }
-    }
+      }
 
-    public async createReview(data: any): Promise<IReviews> {
+    public async createReview(data: any,id:any): Promise<IReviews> {
         try {
-            if (!data.user) throw new Error("El id del usuario es requerido");
-            if (!Types.ObjectId.isValid(data.user))
+            if (!id) throw new Error("El id del usuario es requerido");
+            if (!Types.ObjectId.isValid(id))
                 throw new Error("El id del usuario proporcionado no es válido");
 
-            const user = await User.findById(data.user);
+            const user = await User.findById(id);
 
             if (!user) {
                 throw new Error("No se encontró ningun usuario con ese id");
             }
 
             const newReview = new Reviews(data);
+            newReview.user = id;
             await newReview.save();
             return newReview;
         } catch (error: any) {

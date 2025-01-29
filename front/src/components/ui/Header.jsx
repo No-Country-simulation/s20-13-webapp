@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router';
 import { useUser } from '../../hooks/useUser';
+import Logo from './Logo';
 
 export default function Header({user}) {
   const {logout}=useUser()
@@ -27,9 +28,7 @@ export default function Header({user}) {
     <header>
       <div className="navbar">
 
-        <Link to={"/"} className="logo" >
-          <img src="./Logo.png" alt="Logo" />
-        </Link>
+       <Logo/>
 
 
         <button className="hamburger" onClick={handleMenu}>&#9776;</button>
@@ -45,8 +44,8 @@ export default function Header({user}) {
             :
             (<>
               <Link to={"/auth"}>Iniciar Sesión</Link>
-              <Link to={"/auth"}>Home</Link>
-              <Link to={"/auth"}>About</Link>
+              <Link to={"/"}>Home</Link>
+              <Link to={"/about"}>About</Link>
               <Link to={"/auth"}>Services</Link>
               <Link to={"/auth"}>Contact</Link>
             </>)

@@ -9,7 +9,7 @@ router.get("/:id", reviewsController.getReviewById);
 router.get("/user/:userId", reviewsController.getReviewsByUserId);
 
 
-router.post("/create", reviewsController.createReview);
+router.post("/create/:id", reviewsController.createReview);
 router.put("/update/:id", reviewsController.updateReview); 
 router.delete("/delete/:id", reviewsController.deleteReview); 
 

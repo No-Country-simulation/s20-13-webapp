@@ -82,7 +82,7 @@ const userSchema: Schema = new Schema<IUser>(
     },
     isActive: {
       type: Boolean,
-      default: true,
+      default:false,
     },
     // relaciones con modelos
     pets: {

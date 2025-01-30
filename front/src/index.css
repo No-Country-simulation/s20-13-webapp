@@ -3,6 +3,10 @@
   padding: 0;
   margin: 0;
 }
+.main h1{
+  text-align: center;
+
+}
 
 
 
@@ -329,7 +333,7 @@ border: solid;
     left: 5%;
   }
 }
-
+/* -------------------------------------------Search filter--------------------------------------------- */
 
 .search-filter-container{
   display: flex;
@@ -380,8 +384,11 @@ border: solid;
   position: absolute;
   right: 0;
 }
+/* -------------------------------------------------Search results------------------------------------ */
 
-
+.search-results-container h1{
+color: #0056b3;
+}
 /* ------------------------------------------------------------------------------------ */
 
 /* Responsive styles */

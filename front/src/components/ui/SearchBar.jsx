@@ -45,7 +45,6 @@ export default function SearchBar() {
 
   return (
     <div className="search-bar-container">
-      <h1>Encontrá el cuidador ideal para tu mascota</h1>
       <div className="search-bar">
         <input
           type="text"

@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <>
       <main className="main">
+      <h1>Encontrá el cuidador ideal para tu mascota</h1>
         <SearchBar />
 
         <Caretakers />

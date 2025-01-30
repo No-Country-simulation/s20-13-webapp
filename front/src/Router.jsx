@@ -5,9 +5,9 @@ import Login from './components/auth/Login'
 import Home from './views/Home'
 import CaretakerProfile from './views/CaretakerProfile'
 import About from './views/About'
-import CaretakerRegisterViews from './views/OwnerRegisterViews'
 import OwnerRegisterViews from './views/OwnerRegisterViews'
 import SearchResults from './views/SearchResults'
+import CaretakerRegisterViews from './views/CaretakerRegisterViews'
 
 export default function Router() {
   return (
@@ -18,6 +18,7 @@ export default function Router() {
         <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/auth/register/owner/:id" element={<OwnerRegisterViews/>} />
+          <Route path="/auth/register/caretaker/:id" element={<CaretakerRegisterViews/>} />
         </Route>
         <Route element={<AppHome />}>
           <Route path="/" element={<Home />} />

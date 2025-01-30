@@ -19,7 +19,7 @@ class AuthController {
             return;
         }
         
-
+     
         try {
 
             const { data } = await axios.get(
@@ -42,7 +42,7 @@ class AuthController {
             res.status(200).json({token, user})
 
 
-
+        
 
         } catch (error) {
             console.error(error);

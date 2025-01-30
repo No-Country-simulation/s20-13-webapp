@@ -14,7 +14,7 @@ const petOptions = [
 
 ]
 
-export default function OwnerForm3({id}) {
+export default function Form3({ id, nextForm }) {
 
 
     const [preview, setPreview] = useState(null)
@@ -49,39 +49,43 @@ export default function OwnerForm3({id}) {
         if (file) {
             setPreview(URL.createObjectURL(file))
             setFile(file)
-            setErrors({...errors,image:""},)
-            
+            setErrors({ ...errors, image: "" },)
+
         }
     }
 
     const handleFormData = async (e) => {
         e.preventDefault()
         const newErrors = {}
-        if (!file) newErrors.image="La foto es obligatoria" 
-        if (!data.name) newErrors.name= "El nombre es obligatorio"
-        if (!data.species) newErrors.species= "La especie es obligatoria" 
-        if (!data.breed) newErrors.breed= "La raza es obligatoria" 
-        if (!data.age) newErrors.age= "La edad es obligatoria" 
-        if (!data.description) newErrors.description= "Los campos no pueden ir vacíos" 
-        if (!data.medicalHistory) newErrors.medicalHistory= "Los campos no pueden ir vacíos"
+        if (!file) newErrors.image = "La foto es obligatoria"
+        if (!data.name) newErrors.name = "El nombre es obligatorio"
+        if (!data.species) newErrors.species = "La especie es obligatoria"
+        if (!data.breed) newErrors.breed = "La raza es obligatoria"
+        if (!data.age) newErrors.age = "La edad es obligatoria"
+        if (!data.description) newErrors.description = "Los campos no pueden ir vacíos"
+        if (!data.medicalHistory) newErrors.medicalHistory = "Los campos no pueden ir vacíos"
 
-        if(Object.keys(newErrors).length>0){
+        if (Object.keys(newErrors).length > 0) {
             return setErrors(newErrors)
         }
-       
 
-         const formdata = new FormData()
-         formdata.append("image", file)
-         formdata.append("name", data.name)
-         formdata.append("species",data.species)
-         formdata.append("breed",data.breed)
-         formdata.append("age", data.age)
-         formdata.append("description", data.description)
-         formdata.append("medicalHistory", data.medicalHistory)
-         formdata.append("user", id)
+
+        const formdata = new FormData()
+        formdata.append("image", file)
+        formdata.append("name", data.name)
+        formdata.append("species", data.species)
+        formdata.append("breed", data.breed)
+        formdata.append("age", data.age)
+        formdata.append("description", data.description)
+        formdata.append("medicalHistory", data.medicalHistory)
+        formdata.append("user", id)
         try {
             const request = await api.post("/pets/create", formdata)
-            console.log(request)
+            if (request.status === 201) {
+                nextForm()
+            }
+           
+
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 setErrors({ ...errors, preview: error.response.data.error });
@@ -129,12 +133,12 @@ export default function OwnerForm3({id}) {
 
 
                         />
-                       
+
                     </div>
                     {
-                            errors.image && <ErrorMessage>{errors.image}</ErrorMessage>
-                        }
-      
+                        errors.image && <ErrorMessage>{errors.image}</ErrorMessage>
+                    }
+
                     <label htmlFor="name">Nombre:</label>
                     <input
                         type="text"
@@ -143,9 +147,9 @@ export default function OwnerForm3({id}) {
                         placeholder="Nombre de la mascota"
                         value={data.name}
                         onChange={handleChange} />
-                        {
-                        errors.name&& <ErrorMessage>{errors.name}</ErrorMessage>
-                        }
+                    {
+                        errors.name && <ErrorMessage>{errors.name}</ErrorMessage>
+                    }
 
                     <label htmlFor="species">Especie:</label>
                     <select
@@ -166,8 +170,8 @@ export default function OwnerForm3({id}) {
                         }
                     </select>
                     {
-                        errors.species&& <ErrorMessage>{errors.species}</ErrorMessage>
-                        }
+                        errors.species && <ErrorMessage>{errors.species}</ErrorMessage>
+                    }
                     <label htmlFor="breed">Raza:</label>
                     <input
                         type="text"
@@ -178,7 +182,7 @@ export default function OwnerForm3({id}) {
                     />
                     {
                         errors.breed && <ErrorMessage>{errors.breed}</ErrorMessage>
-                        }
+                    }
                     <label htmlFor="age">Edad:</label>
                     <input
                         type="number"
@@ -188,8 +192,8 @@ export default function OwnerForm3({id}) {
                         onChange={handleChange}
                     />
                     {
-                        errors.age&& <ErrorMessage>{errors.age}</ErrorMessage>
-                        }
+                        errors.age && <ErrorMessage>{errors.age}</ErrorMessage>
+                    }
 
                     <label htmlFor="description">Descripción:</label>
                     <textarea
@@ -199,8 +203,8 @@ export default function OwnerForm3({id}) {
                         rows={3}
                         placeholder="Escribe una breve descripción" ></textarea>
                     {
-                        errors.description&& <ErrorMessage>{errors.description}</ErrorMessage>
-                        }
+                        errors.description && <ErrorMessage>{errors.description}</ErrorMessage>
+                    }
                     <label htmlFor="medicalHistory">Historial Médico:</label>
                     <textarea
                         onChange={handleChange}
@@ -209,8 +213,8 @@ export default function OwnerForm3({id}) {
                         rows={3}
                         placeholder="Historial médico de la mascota"></textarea>
                     {
-                        errors.medicalHistory&& <ErrorMessage>{errors.medicalHistory}</ErrorMessage>
-                        }
+                        errors.medicalHistory && <ErrorMessage>{errors.medicalHistory}</ErrorMessage>
+                    }
                     <input className="btn-input" type="submit" value="Guardar" />
                 </form>
             </div>

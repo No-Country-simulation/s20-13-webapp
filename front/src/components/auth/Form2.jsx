@@ -90,8 +90,8 @@ export default function Form2({ prevForm, nextForm }) {
           </select>
           {errors.neighborhood && <ErrorMessage>{errors.neighborhood}</ErrorMessage>}
 
-          <PhoneInput handlePhoneChange={handlePhoneChange} errors={errors} />
-
+          <PhoneInput handlePhoneChange={handlePhoneChange}  />
+          {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
           <label htmlFor="about">Breve descripción sobre vos:</label>
           <textarea
             onChange={handleChange}

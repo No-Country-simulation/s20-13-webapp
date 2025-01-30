@@ -7,7 +7,7 @@ const areaCodes = [
   { code: "+55", country: "Brasil" },
 ];
 
-export function PhoneInput({ handlePhoneChange, errors }) {
+export function PhoneInput({ handlePhoneChange}) {
     const [selectedCode, setSelectedCode] = useState(areaCodes[0].code);
     const [phoneNumber, setPhoneNumber] = useState("");
   
@@ -44,7 +44,6 @@ export function PhoneInput({ handlePhoneChange, errors }) {
           style={{ padding: "5px", borderRadius: "5px", width: "100%" }}
           value={phoneNumber}
         />
-        {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
       </div>
     );
   }

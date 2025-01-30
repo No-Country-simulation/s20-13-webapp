@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 import { PhoneInput } from "../ui/PhoneInput";
 
 
-export default function OwnerForm2({ prevForm, nextForm }) {
+export default function Form2({ prevForm, nextForm }) {
   const params = useParams();
   const id = params.id;
 

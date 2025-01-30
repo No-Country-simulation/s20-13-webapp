@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios'
 import ErrorMessage from '../ui/ErrorMessage'
 
 
-export default function OwnerForm1({user,nextForm}) {
+export default function Form1({user,nextForm}) {
 
 
   const [picture, setPicture] = useState(null)

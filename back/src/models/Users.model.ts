@@ -5,6 +5,15 @@ export enum UserRole {
   CARETAKER = "caretaker", // cuidador
   ADMIN = "administrator",
 }
+export enum UserService {
+  CARETAKER = "caretaker",
+  DOGWALKER = "dogwalker"
+}
+
+interface Cost {
+  hour: number
+  day: number
+}
 
 export interface IUser extends Document {
   name: string;
@@ -20,9 +29,10 @@ export interface IUser extends Document {
   phone?: [string];
   certificate?: [string]; // certificados de cuidador
 
+  cost: Cost
   role?: UserRole;
   isActive?: boolean;
-
+  service?: [UserService]
   pets?: Schema.Types.ObjectId[];
   reviews?: Schema.Types.ObjectId[];
   schedule?: Schema.Types.ObjectId;
@@ -78,21 +88,38 @@ const userSchema: Schema = new Schema<IUser>(
     role: {
       type: String,
       enum: Object.values(UserRole),
-      default: UserRole.OWNER, // por defecto dueño
+      default: UserRole.OWNER,
+    },
+    service: {
+      type: [String],
+      enum: Object.values(UserService),
+      default: [],
+    },
+    cost: {
+      hour: {
+        type: Number,
+        default: null
+      },
+      day: {
+        type: Number,
+        default: null
+      }
+
     },
     isActive: {
       type: Boolean,
-      default:false,
+      default: false,
     },
+
     // relaciones con modelos
-    pets: { 
-      type: [Schema.Types.ObjectId], 
-      ref: "Pets", 
-      default: [] 
+    pets: {
+      type: [Schema.Types.ObjectId],
+      ref: "Pets",
+      default: []
     },
 
     reviews: {
-      type:[ Schema.Types.ObjectId],
+      type: [Schema.Types.ObjectId],
       ref: "Reviews",
       default: [],
     },
@@ -127,6 +154,8 @@ userSchema.pre("save", function (next) {
     nationality: "",
     neighborhood: "",
     address: "",
+    service:"",
+    cost:{},
     phone: [],
     certificate: [],
     pets: [],

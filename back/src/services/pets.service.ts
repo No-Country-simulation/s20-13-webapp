@@ -55,6 +55,7 @@ export class PetsService {
             }
             const newPet = new Pets(petData);
             user.pets?.push(newPet.id)  
+            user.isActive=true
             await Promise.allSettled([newPet.save(),user.save()])
             return newPet;
         } catch (error) {

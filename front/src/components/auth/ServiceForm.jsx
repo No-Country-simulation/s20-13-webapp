@@ -3,7 +3,19 @@ import ErrorMessage from "../ui/ErrorMessage"
 import api from "../../lib/axios"
 import { isAxiosError } from "axios"
 
-export default function ServiceForm({id}) {
+const dictionary = {
+    monday: "Lunes",
+    tuesday: "Martes",
+    wednesday: "Miércoles",
+    thursday: "Jueves",
+    friday: "Viernes",
+    saturday: "Sábado",
+    sunday: "Domingo"
+}
+
+
+
+export default function ServiceForm({ id,nextForm }) {
     const [service, setService] = useState("")
     const [costPerHour, setCostPerHour] = useState("")
     const [costPerDay, setCostPerDay] = useState("")
@@ -19,7 +31,7 @@ export default function ServiceForm({id}) {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        
+
         if (name === "service") {
             setService(value)
             setCostPerHour("")
@@ -34,9 +46,11 @@ export default function ServiceForm({id}) {
     }
 
     const handleDaySelect = (e) => {
-        const selectedDay = e.target.value
-        if (selectedDay && !days.includes(selectedDay)) {
-            setDays([...days, selectedDay])
+        const {value}=e.target
+        const selectedDay = value
+        const selectedDaysInEnglish = reverseDictionary[selectedDay]
+        if (selectedDaysInEnglish && !days.includes(selectedDaysInEnglish)) {
+            setDays([...days, selectedDaysInEnglish])
             setErrors({ ...errors, availability: "" })
         }
     }
@@ -45,15 +59,15 @@ export default function ServiceForm({id}) {
         setDays(days.filter((d) => d !== day))
     }
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         let newErrors = {};
-        
+
         if (!data.service) newErrors.service = "El servicio es obligatorio.";
         if (!data.isActive) newErrors.isActive = "Selecciona si el servicio está disponible.";
         if (!days.length) newErrors.availability = "Selecciona al menos un día.";
-        
+
         if (service === "caretaker") {
             if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
             if (!costPerDay) newErrors.costPerDay = "El costo por día es obligatorio.";
@@ -72,10 +86,12 @@ export default function ServiceForm({id}) {
         };
 
         setData(updatedData);
-       
+
         try {
-            const request=await api.put(`/users/${id}`,updatedData)
-                console.log(request)
+            const request = await api.put(`/users/${id}`, updatedData)
+            if (request.status === 200) {
+                nextForm()
+            }
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 throw new Error(error.response.data.error)
@@ -83,6 +99,12 @@ export default function ServiceForm({id}) {
         }
 
     };
+
+    const availavilityDays = Object.entries(dictionary).map(([key, value]) => ({ key, value }))
+    const reverseDictionary = Object.fromEntries(
+        Object.entries(dictionary).map(([key, value]) => [value, key])
+    );
+
 
     return (
         <main className="formuaaa">
@@ -136,7 +158,7 @@ export default function ServiceForm({id}) {
                                     type="number"
                                     placeholder="Costo por hora"
                                     value={costPerHour}
-                                    onChange={(e) =>{
+                                    onChange={(e) => {
                                         setCostPerHour(e.target.value)
                                     }}
                                 />
@@ -149,13 +171,12 @@ export default function ServiceForm({id}) {
                         <label htmlFor="days">Disponibilidad de días</label>
                         <select id="days" name="days" onChange={handleDaySelect}>
                             <option value="">-- Selecciona una opción --</option>
-                            <option value="Lunes">Lunes</option>
-                            <option value="Martes">Martes</option>
-                            <option value="Miércoles">Miércoles</option>
-                            <option value="Jueves">Jueves</option>
-                            <option value="Viernes">Viernes</option>
-                            <option value="Sábado">Sábado</option>
-                            <option value="Domingo">Domingo</option>
+                            {
+                                availavilityDays.map(item => (
+                                    <option key={item.key}>{item.value}</option>
+                                ))
+                            }
+
                         </select>
                         {errors.availability && <ErrorMessage>{errors.availability}</ErrorMessage>}
                     </div>

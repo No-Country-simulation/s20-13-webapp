@@ -15,6 +15,16 @@ interface Cost {
   day: number
 }
 
+enum AvailabilityDay {
+  MONDAY = "monday",
+  TUESDAY = "tuesday",
+  WEDNESDAY = "wednesday",
+  THURSDAY = "thursday",
+  FRIDAY = "friday",
+  SATURDAY = "saturday",
+  SUNDAY = "sunday",
+}
+
 export interface IUser extends Document {
   name: string;
   lastName?: string;
@@ -36,7 +46,7 @@ export interface IUser extends Document {
   pets?: Schema.Types.ObjectId[];
   reviews?: Schema.Types.ObjectId[];
   schedule?: Schema.Types.ObjectId;
-  availability?: Types.ObjectId[];
+  availability?: AvailabilityDay[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -129,13 +139,11 @@ const userSchema: Schema = new Schema<IUser>(
       default: null,
     },
     //un array para tener varios horarios de disponibilidad
-    availability: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Availability",
-        default: null,
-      },
-    ],
+    availability:{
+        type:[String],
+        enum:Object.values(AvailabilityDay),
+        default:[]
+    }
   },
   {
     // versionado
@@ -161,7 +169,7 @@ userSchema.pre("save", function (next) {
     pets: [],
     reviews: [],
     schedule: null,
-    availability: null,
+    availability: [],
   };
 
   for (const [key, value] of Object.entries(defaultValues)) {

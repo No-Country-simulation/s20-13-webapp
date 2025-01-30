@@ -7,6 +7,7 @@ import CaretakerProfile from './views/CaretakerProfile'
 import About from './views/About'
 import CaretakerRegisterViews from './views/OwnerRegisterViews'
 import OwnerRegisterViews from './views/OwnerRegisterViews'
+import SearchResults from './views/SearchResults'
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
         <Route element={<AppHome />}>
           <Route path="/" element={<Home />} />
           <Route path={"/caretaker/:id"} element={<CaretakerProfile/>}/>
+          <Route path="/results" element={<SearchResults />} />
         </Route>
 
       </Routes>

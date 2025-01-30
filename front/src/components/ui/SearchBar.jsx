@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
   const [service, setService] = useState(""); 
   const [zone, setZone] = useState(""); 
   const [focus, setFocus] = useState("service"); 
   const [suggestions, setSuggestions] = useState([]); // sugerencias 
+  const navigate = useNavigate();
 
-  const serviceOptions = ["Paseos", "Guardería", "Adiestramiento", "Veterinario"];
+  const serviceOptions = ["Cuidado", "Guardería", "Adiestramiento", "Veterinario"];
   const zoneOptions = ["Córdoba", "Buenos Aires", "Mendoza", "Rosario"];
 
   const handleInputChange = (e) => {
@@ -38,7 +40,7 @@ export default function SearchBar({ onSearch }) {
   };
 
   const handleSearch = () => {
-    onSearch(service, zone); // Llama a la función de filtrado pasada por props
+    navigate(`/results?service=${service}&zone=${zone}`);
   };
 
   return (
@@ -72,15 +74,15 @@ export default function SearchBar({ onSearch }) {
         <button type="button" onClick={handleSearch}>
           Buscar
         </button>
-      {suggestions.length > 0 && (
-        <ul className={`suggestions ${suggestions.length > 0 ? "show" : ""}`}>
-          {suggestions.map((option, index) => (
-            <li key={index} onClick={() => handleSuggestionClick(option)} className="suggestion-item">
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
+        {suggestions.length > 0 && (
+          <ul className={`suggestions ${suggestions.length > 0 ? "show" : ""}`}>
+            {suggestions.map((option, index) => (
+              <li key={index} onClick={() => handleSuggestionClick(option)} className="suggestion-item">
+                {option}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

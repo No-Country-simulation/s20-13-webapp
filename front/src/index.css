@@ -1138,6 +1138,15 @@ padding: 0;
   color: white;
 }
 
+.btn-add-day{
+  padding: 5px;
+  border: none;
+  background-color: green;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 10px;
+}
+
 
 /* CONTRATULATIONS*/
 

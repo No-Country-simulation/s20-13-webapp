@@ -1,5 +1,5 @@
 import { Availability, IAvailability } from "../models/Availability.model";
-import { User } from "../models/Users.model";
+import { IUser, User } from "../models/Users.model";
 import { Types } from "mongoose";
 
 //esto se puede cambiar dependiendo de como lo mande el front
@@ -8,6 +8,7 @@ interface IAvailabilityData {
   startTime: string;
   endTime: string;
 }
+
 
 export class AvailabilityService {
   //GET all availability
@@ -28,29 +29,36 @@ export class AvailabilityService {
   //POST create availability
   public async createAvailability(
     caretakerId: string,
-    data: IAvailabilityData
-  ): Promise<IAvailability> {
-    if (!caretakerId) throw new Error("ID de cuidador inválido");
-    if (!data.day || !data.startTime || !data.endTime)
-      throw new Error("Faltan datos de disponibilidad");
+    data: IAvailabilityData[]
+  ): Promise<void> {
 
-    if (data.startTime >= data.endTime)
-      throw new Error("El horario de inicio debe ser menor al de fin");
-    if (
-      data.startTime < "00:00" ||
-      data.startTime > "23:59" ||
-      data.endTime < "00:00" ||
-      data.endTime > "23:59"
-    ) {
-      throw new Error("Horario inválido");
-    }
-
-    /*
-      FUTURO:
-      1) Middleware para verificar que el cuidador existe o con JWT.
-      2) Validar si el día es correcto con otras reglas (por ejemplo, no permitir fines de semana).
-      3) Evitar choques de disponibilidad (ver si ya existe un Availability en el mismo día/hora).
-    */
+    
+     if (!caretakerId) throw new Error("ID de cuidador inválido");
+   
+ 
+     data.forEach((avail) => {
+      if (!avail.day || !avail.startTime || !avail.endTime)
+        throw new Error("Faltan datos de disponibilidad");
+  
+      if (avail.startTime >= avail.endTime)
+        throw new Error("El horario de inicio debe ser menor al de fin");
+  
+      if (
+        avail.startTime < "00:00" ||
+        avail.startTime > "23:59" ||
+        avail.endTime < "00:00" ||
+        avail.endTime > "23:59"
+      ) {
+        throw new Error("Horario inválido");
+      }
+    });
+  
+    // /*
+    // FUTURO:
+    //   1) Middleware para verificar que el cuidador existe o con JWT.
+    //   2) Validar si el día es correcto con otras reglas (por ejemplo, no permitir fines de semana).
+    //   3) Evitar choques de disponibilidad (ver si ya existe un Availability en el mismo día/hora).
+    // */
 
     //verificar que el usuario existe y sea caretaker
     const caretakerUser = await User.findOne({
@@ -60,23 +68,24 @@ export class AvailabilityService {
     if (caretakerUser.role !== "caretaker")
       throw new Error("El usuario no es cuidador (role=caretaker)");
 
-    const newAvailability = new Availability({
-      caretaker: caretakerId,
+    try {
+      const savedAvailabilities = await Availability.insertMany(
+        data.map((avail) => ({
+          caretaker: caretakerId,
+          day: avail.day,
+          startTime: avail.startTime,
+          endTime: avail.endTime,
+        }))
+      );
+      caretakerUser.availability?.push(...savedAvailabilities.map((avail) => avail.id));
+      await caretakerUser.save();
+     
+      console.log("Disponibilidades guardadas:", savedAvailabilities);
+    } catch (error) {
+      console.error("Error al guardar las disponibilidades:", error);
+      throw new Error("No se pudieron guardar las disponibilidades");
+    }
 
-      day: data.day,
-      startTime: data.startTime,
-      endTime: data.endTime,
-    });
-    const savedAvailability = await newAvailability.save();
-
-    //actualizar el array de availability en el usuario
-    caretakerUser.availability = caretakerUser.availability || [];
-    (caretakerUser.availability as Types.ObjectId[]).push(
-      savedAvailability._id as Types.ObjectId
-    );
-    await caretakerUser.save();
-
-    return savedAvailability;
   }
 
   //PATCH update availability
@@ -117,13 +126,13 @@ export class AvailabilityService {
       throw new Error("El usuario no es cuidador (role=caretaker)");
 
     //comprobar que "availabilityId" esté dentro de su array "availability"
-    if (
-      !caretakerUser.availability?.includes(new Types.ObjectId(availabilityId))
-    ) {
-      throw new Error(
-        "La disponibilidad a actualizar no pertenece al cuidador especificado"
-      );
-    }
+    // if (
+    //   !caretakerUser.availability?.includes(new Types.ObjectId(availabilityId))
+    // ) {
+    //   throw new Error(
+    //     "La disponibilidad a actualizar no pertenece al cuidador especificado"
+    //   );
+    // }
 
     const updatedDoc = await Availability.findOneAndUpdate(
       {

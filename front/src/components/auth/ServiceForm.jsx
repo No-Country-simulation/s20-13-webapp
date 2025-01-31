@@ -1,63 +1,42 @@
-import { useState } from "react"
-import ErrorMessage from "../ui/ErrorMessage"
-import api from "../../lib/axios"
-import { isAxiosError } from "axios"
+import { useState } from "react";
+import ErrorMessage from "../ui/ErrorMessage";
+import api from "../../lib/axios";
+import { isAxiosError } from "axios";
+import AvailavilityForm from "../ui/AvailavilityForm";
+import { dictionary } from "../../utils/helpers";
 
-const dictionary = {
-    monday: "Lunes",
-    tuesday: "Martes",
-    wednesday: "Miércoles",
-    thursday: "Jueves",
-    friday: "Viernes",
-    saturday: "Sábado",
-    sunday: "Domingo"
-}
-
-
-
-export default function ServiceForm({ id,nextForm }) {
-    const [service, setService] = useState("")
-    const [costPerHour, setCostPerHour] = useState("")
-    const [costPerDay, setCostPerDay] = useState("")
-    const [days, setDays] = useState([])
-    const [errors, setErrors] = useState({})
+export default function ServiceForm({ id, nextForm }) {
+    const [service, setService] = useState("");
+    const [costPerHour, setCostPerHour] = useState("");
+    const [errors, setErrors] = useState({});
+    const [addDay, setAddDay] = useState(false);
+    const [days, setDays] = useState([]);
 
     const [data, setData] = useState({
         service: "",
         isActive: "",
-        cost: { costPerHour: "", costPerDay: "" },
-        availability: []
-    })
+        cost: ""
+    });
 
     const handleChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
 
         if (name === "service") {
-            setService(value)
-            setCostPerHour("")
-            setCostPerDay("")
-            setErrors({ ...errors, service: "" })
+            setService(value);
+            setCostPerHour(""); // Reiniciar el costo por hora al cambiar el servicio
+            setErrors({ ...errors, service: "" });
         }
 
         setData((prev) => ({
             ...prev,
-            [name]: value
-        }))
-    }
+            [name]: value,
+        }));
+    };
 
-    const handleDaySelect = (e) => {
-        const {value}=e.target
-        const selectedDay = value
-        const selectedDaysInEnglish = reverseDictionary[selectedDay]
-        if (selectedDaysInEnglish && !days.includes(selectedDaysInEnglish)) {
-            setDays([...days, selectedDaysInEnglish])
-            setErrors({ ...errors, availability: "" })
-        }
-    }
+    const removeDay = (dayToRemove) => {
+        setDays(days.filter((day) => day.day !== dayToRemove.day));
+    };
 
-    const removeDay = (day) => {
-        setDays(days.filter((d) => d !== day))
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,43 +46,37 @@ export default function ServiceForm({ id,nextForm }) {
         if (!data.service) newErrors.service = "El servicio es obligatorio.";
         if (!data.isActive) newErrors.isActive = "Selecciona si el servicio está disponible.";
         if (!days.length) newErrors.availability = "Selecciona al menos un día.";
-
-        if (service === "caretaker") {
-            if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
-            if (!costPerDay) newErrors.costPerDay = "El costo por día es obligatorio.";
-        } else {
-            if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
-        }
+        if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
+        if (costPerHour <= 0) newErrors.costPerHour = "El costo es inválido";
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
         }
+
         const updatedData = {
             ...data,
-            cost: { costPerHour, costPerDay },
-            availability: days
+            cost: costPerHour,
         };
-
+        const availabilityList =[ 
+            ...days
+        ]
         setData(updatedData);
 
         try {
-            const request = await api.put(`/users/${id}`, updatedData)
-            if (request.status === 200) {
+            const request = await api.put(`/users/${id}`, updatedData );
+             const result = await api.post(`/caretaker/${id}/availability`,{availability:availabilityList});
+            
+             if(request.status === 200 && result.status === 201){
                 nextForm()
-            }
+             }
+            
         } catch (error) {
             if (isAxiosError(error) && error.response) {
-                throw new Error(error.response.data.error)
+                throw new Error(error.response.data.error);
             }
         }
-
     };
-
-    const availavilityDays = Object.entries(dictionary).map(([key, value]) => ({ key, value }))
-    const reverseDictionary = Object.fromEntries(
-        Object.entries(dictionary).map(([key, value]) => [value, key])
-    );
 
 
     return (
@@ -133,59 +106,40 @@ export default function ServiceForm({ id,nextForm }) {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="cost">Costo del servicio:</label>
-                        {service === "caretaker" ? (
-                            <>
-                                <input
-                                    type="number"
-                                    placeholder="Costo por hora"
-                                    value={costPerHour}
-                                    onChange={(e) => setCostPerHour(e.target.value)}
-                                />
-                                {errors.costPerHour && <ErrorMessage>{errors.costPerHour}</ErrorMessage>}
-
-                                <input
-                                    type="number"
-                                    placeholder="Costo por día"
-                                    value={costPerDay}
-                                    onChange={(e) => setCostPerDay(e.target.value)}
-                                />
-                                {errors.costPerDay && <ErrorMessage>{errors.costPerDay}</ErrorMessage>}
-                            </>
-                        ) : (
-                            <>
-                                <input
-                                    type="number"
-                                    placeholder="Costo por hora"
-                                    value={costPerHour}
-                                    onChange={(e) => {
-                                        setCostPerHour(e.target.value)
-                                    }}
-                                />
-                                {errors.costPerHour && <ErrorMessage>{errors.costPerHour}</ErrorMessage>}
-                            </>
-                        )}
+                        <label htmlFor="cost">Costo por hora:</label>
+                        <input
+                            type="number"
+                            placeholder="Costo por hora"
+                            value={costPerHour}
+                            onChange={(e) => setCostPerHour(e.target.value)}
+                        />
+                        {errors.costPerHour && <ErrorMessage>{errors.costPerHour}</ErrorMessage>}
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="days">Disponibilidad de días</label>
-                        <select id="days" name="days" onChange={handleDaySelect}>
-                            <option value="">-- Selecciona una opción --</option>
-                            {
-                                availavilityDays.map(item => (
-                                    <option key={item.key}>{item.value}</option>
-                                ))
-                            }
-
-                        </select>
-                        {errors.availability && <ErrorMessage>{errors.availability}</ErrorMessage>}
-                    </div>
+                    {!addDay ? (
+                        <button className="btn-add-day" onClick={() => setAddDay(true)}>
+                            Agregar Días y Horarios
+                        </button>
+                    ) : (
+                        <AvailavilityForm
+                            id={id}
+                            setErrors={setErrors}
+                            errors={errors}
+                            setDays={setDays}
+                            days={days}
+                        />
+                    )}
 
                     {days.length > 0 && (
                         <div className="selected-days">
                             {days.map((day, index) => (
-                                <button key={index} className="btn-day" type="button" onClick={() => removeDay(day)}>
-                                    {day}
+                                <button
+                                    key={index}
+                                    className="btn-day"
+                                    type="button"
+                                    onClick={() => removeDay(day)}
+                                >
+                                    {dictionary[day.day]} - {day.startTime} hs a {day.endTime} hs
                                 </button>
                             ))}
                         </div>
@@ -195,5 +149,5 @@ export default function ServiceForm({ id,nextForm }) {
                 </form>
             </div>
         </main>
-    )
+    );
 }

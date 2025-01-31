@@ -17,14 +17,14 @@ export default function Router() {
 
       <Routes>
         <Route element={<AppHome />}>
-        <Route path="/" element={<Home />} />  
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/auth/register/owner/:id" element={<OwnerRegisterViews />} />
           <Route path="/auth/register/caretaker/:id" element={<CaretakerRegisterViews />} />
         </Route>
         <Route element={<UserLayout />}>
-          <Route path="/profile" element={<ProfileView />} />               
+          <Route path="/profile" element={<ProfileView />} />
           <Route path={"/caretaker/:id"} element={<CaretakerProfile />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>

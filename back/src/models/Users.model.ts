@@ -5,7 +5,7 @@ export enum UserRole {
   CARETAKER = "caretaker", // cuidador
   ADMIN = "administrator",
 }
-export enum UserService {
+export enum  UserService {
   CARETAKER = "caretaker",
   DOGWALKER = "dogwalker"
 }
@@ -15,15 +15,11 @@ interface Cost {
   day: number
 }
 
-enum AvailabilityDay {
-  MONDAY = "monday",
-  TUESDAY = "tuesday",
-  WEDNESDAY = "wednesday",
-  THURSDAY = "thursday",
-  FRIDAY = "friday",
-  SATURDAY = "saturday",
-  SUNDAY = "sunday",
+export enum PetType{
+  DOG="dog",
+  CAT="cat"
 }
+
 
 export interface IUser extends Document {
   name: string;
@@ -35,19 +31,18 @@ export interface IUser extends Document {
   nationality?: string;
   neighborhood?: string;
   address?: string;
-
+  zone?:string
   phone?: [string];
   certificate?: [string]; // certificados de cuidador
-
+  petType:PetType
   cost: Cost
   role?: UserRole;
   isActive?: boolean;
-  service?: [UserService]
+  service?: UserService
   pets?: Schema.Types.ObjectId[];
   reviews?: Schema.Types.ObjectId[];
   schedule?: Schema.Types.ObjectId;
-  availability?: AvailabilityDay[];
-
+  availability?: Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -87,6 +82,10 @@ const userSchema: Schema = new Schema<IUser>(
       type: String,
       default: "",
     },
+    zone: {
+      type: String,
+      default: "",
+    },
     phone: {
       type: [String],
       default: [],
@@ -101,9 +100,14 @@ const userSchema: Schema = new Schema<IUser>(
       default: UserRole.OWNER,
     },
     service: {
-      type: [String],
+      type: String,
       enum: Object.values(UserService),
-      default: [],
+      default:null
+    },
+    petType:{
+      type:String,
+      enum:Object.values(PetType),
+      default:null
     },
     cost: {
       hour: {
@@ -140,8 +144,8 @@ const userSchema: Schema = new Schema<IUser>(
     },
     //un array para tener varios horarios de disponibilidad
     availability:{
-        type:[String],
-        enum:Object.values(AvailabilityDay),
+        type:[Schema.Types.ObjectId],
+        ref:"Availability",
         default:[]
     }
   },
@@ -162,10 +166,12 @@ userSchema.pre("save", function (next) {
     nationality: "",
     neighborhood: "",
     address: "",
-    service:"",
+    zone:"",
+    service:null,
     cost:{},
     phone: [],
     certificate: [],
+    petType:null,
     pets: [],
     reviews: [],
     schedule: null,

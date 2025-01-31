@@ -8,11 +8,7 @@ import { useEffect } from "react";
 export default function UserLayout() {
     const navigate=useNavigate()
     const {user,handleLogout}=useUser()
-    
-    useEffect(()=>{
-        if(!user) return navigate("/auth")
-    },[user])
- 
+
     return (
         <>
             <Header user={user} handleLogout={handleLogout}/>

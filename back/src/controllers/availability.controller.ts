@@ -48,14 +48,29 @@ export class AvailabilityController {
     req: Request,
     res: Response
   ): Promise<any> {
+
+
+  
     try {
       const { caretakerId } = req.params;
-      const { day, startTime, endTime } = req.body;
+       let{availability}=req.body;
 
-      const newAvailability = await this.availabilityService.createAvailability(
-        caretakerId,
-        { day, startTime, endTime }
-      );
+    // Verificar si availability es un array, si no, convertirlo
+    if (!Array.isArray(availability)) {
+      availability = Object.values(availability);
+    }
+
+    // Verificar que no esté vacío
+    if (!availability || availability.length === 0) {
+      return res.status(400).json({ message: "Availability data is required" });
+    }
+
+      
+       const newAvailability = await this.availabilityService.createAvailability(
+         caretakerId,
+         availability
+       );
+  
 
       return res.status(201).json({
         success: true,

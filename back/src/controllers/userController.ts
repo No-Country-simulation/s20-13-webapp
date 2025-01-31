@@ -31,11 +31,11 @@ class UserController {
                 if (result && user) {
                     user.profilePicture = result.secure_url
                     await user.save()
-                    res.json({ image: result.secure_url })
+                    res.status(200).json({ image: result.secure_url })
                 }
             })
 
-            res.status(200).json("Imagen subida con exito")
+  
 
         } catch (error) {
             res.status(404).json({ error: "Hubo un error al subir la imagen" })

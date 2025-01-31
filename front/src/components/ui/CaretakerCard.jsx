@@ -1,9 +1,10 @@
 import { Link } from "react-router";
 import { useUser } from "../../hooks/useUser";
+import {  dictionaryService } from "../../utils/helpers";
 
 function CaretakerCard({ caretaker }) {
   const {user}=useUser()
-
+  
   const linkTo=user ? `/caretaker/${caretaker._id}` : "/auth"
 
   return (
@@ -25,7 +26,8 @@ function CaretakerCard({ caretaker }) {
             </p>
           </a>
         </div>
-        <h3 className="card-title text-center mt-3">{caretaker.name} {caretaker.lastName}</h3>
+        <h3 className="card-title ">{caretaker.name} {caretaker.lastName}</h3>
+        <h2 className="card-title ">{dictionaryService[caretaker.service]}</h2>
         
         <p className="card-text text-center">
           {caretaker.about}
@@ -38,7 +40,10 @@ function CaretakerCard({ caretaker }) {
             marginBottom: "20px",
           }}
         >
-          $6.000
+          {/* ${
+           caretaker.cost
+          } por hora */}
+       $6000
         </h1>
         <Link to={linkTo} className="btn btn-primary botn d-block mx-auto">
          { user ? "Contactar Servicio" : "Inicia Sesion para contactar"}

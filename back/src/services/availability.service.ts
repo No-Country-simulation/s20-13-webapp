@@ -1,5 +1,5 @@
 import { Availability, IAvailability } from "../models/Availability.model";
-import { User } from "../models/Users.model";
+import { User, AvailabilityDay} from "../models/Users.model";
 import { Types } from "mongoose";
 
 //esto se puede cambiar dependiendo de como lo mande el front
@@ -71,9 +71,9 @@ export class AvailabilityService {
 
     //actualizar el array de availability en el usuario
     caretakerUser.availability = caretakerUser.availability || [];
-    (caretakerUser.availability as Types.ObjectId[]).push(
-      savedAvailability._id as Types.ObjectId
-    );
+    if (!caretakerUser.availability.includes(data.day as AvailabilityDay)) {
+      caretakerUser.availability.push(data.day as AvailabilityDay);
+    }
     await caretakerUser.save();
 
     return savedAvailability;
@@ -117,12 +117,8 @@ export class AvailabilityService {
       throw new Error("El usuario no es cuidador (role=caretaker)");
 
     //comprobar que "availabilityId" esté dentro de su array "availability"
-    if (
-      !caretakerUser.availability?.includes(new Types.ObjectId(availabilityId))
-    ) {
-      throw new Error(
-        "La disponibilidad a actualizar no pertenece al cuidador especificado"
-      );
+    if (!caretakerUser.availability?.includes(data.day as AvailabilityDay)) {
+      throw new Error("La disponibilidad a actualizar no pertenece al cuidador especificado");
     }
 
     const updatedDoc = await Availability.findOneAndUpdate(

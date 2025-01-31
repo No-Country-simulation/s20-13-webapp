@@ -15,7 +15,7 @@ interface Cost {
   day: number
 }
 
-enum AvailabilityDay {
+export enum AvailabilityDay {
   MONDAY = "monday",
   TUESDAY = "tuesday",
   WEDNESDAY = "wednesday",

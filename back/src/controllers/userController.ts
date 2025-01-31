@@ -35,6 +35,8 @@ class UserController {
                 }
             })
 
+            res.status(200).json("Imagen subida con exito")
+
         } catch (error) {
             res.status(404).json({ error: "Hubo un error al subir la imagen" })
         }

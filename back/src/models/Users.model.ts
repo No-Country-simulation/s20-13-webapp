@@ -170,6 +170,7 @@ userSchema.pre("save", function (next) {
     reviews: [],
     schedule: null,
     availability: [],
+    isActive:false
   };
 
   for (const [key, value] of Object.entries(defaultValues)) {

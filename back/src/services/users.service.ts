@@ -20,29 +20,20 @@ class UserService {
 
     async updateUser(id: string, data: any) {
 
-        console.log(id,data)
+    
 
-    try {
-        const user=await User.findById(id)
-        if(!user){
+        try {
+            const user = await User.findByIdAndUpdate(id,data,{new:true,runValidators:true})
+            if (!user) {
                 throw new Error("No se encontró ningún usuario");
-             }
-        user.service=data.service
-        user.isActive=data.isActive
-        user.cost=data.cost
-        user.availability=data.availability
-        await user.save() 
-        return user;
-    } catch (error) {
-        console.log(error)
-        throw new Error("Error al actualizar al usuario");
-    }   
+            }
+    
+            return user;
+        } catch (error) {
+            console.log(error)
+            throw new Error("Error al actualizar al usuario");
+        }
 
-        // const user = await User.findByIdAndUpdate(id, data, { new: true, runValidators: true });
-        // if (!user) {
-        //     throw new Error("No se encontró ningún usuario");
-        // }
-      
     }
 
     async deleteUser(id: string) {

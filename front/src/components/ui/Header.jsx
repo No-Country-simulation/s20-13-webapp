@@ -37,7 +37,7 @@ const Header = ({ user, handleLogout }) => {
 
         {
           !user &&
-          <>
+          <div>
             <button className="hamburger" onClick={handleMenu}>&#9776;</button>
             <div className={`menu ${isMenuOpen ? 'active' : ''}`}>
               <>
@@ -49,14 +49,9 @@ const Header = ({ user, handleLogout }) => {
               </>
 
             </div>
-          </>
+          </div>
 
         }
-
-
-
-
-
 
       </div>
     </header>

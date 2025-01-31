@@ -14,6 +14,12 @@ const petOptions = [
 
 ]
 
+const speciesTranslation = {
+    dog: "perro",
+    cat: "gato",
+  };
+  
+
 export default function Form3({ id, nextForm }) {
 
 
@@ -164,7 +170,7 @@ export default function Form3({ id, nextForm }) {
                                 <option
                                     key={pet.id}
                                 >
-                                    {pet.species}
+                                    {speciesTranslation[pet.species]}
                                 </option>
                             ))
                         }

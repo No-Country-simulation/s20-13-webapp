@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function ProfileView() {
 
-    
+  
   return (
-    <div>ProfileView</div>
-  )
-}
+    <div >
+      <h2>Mi Perfil</h2>
+
+    </div>
+  );
+};
+  
+

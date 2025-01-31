@@ -47,7 +47,7 @@ export class PetsService {
 
     public async createPet(petData: any): Promise<IPets> {
 
-
+        console.log(petData)
         try {
             const user = await User.findById(petData.user);
             if (!user) {

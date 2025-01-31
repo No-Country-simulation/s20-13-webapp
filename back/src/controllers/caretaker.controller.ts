@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { CaretakerService } from "../services/caretaker.service";
+import { UserService } from "../models/Users.model";
+
 
 export class CaretakerController {
   private caretakerService: CaretakerService;
@@ -91,4 +93,31 @@ export class CaretakerController {
       });
     }
   }
+
+
+// filtrado de cuidadores
+public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
+  const { neighborhood, petId, service } = req.query;
+
+  try {
+    const caretakers = await this.caretakerService.filterCaretakers(
+      neighborhood as string,
+      petId as string,
+      service as UserService
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Cuidadores filtrados con éxito",
+      data: caretakers,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Ha ocurrido un error inesperado",
+    });
+  }
+}
+
+
 }

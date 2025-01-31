@@ -13,7 +13,7 @@ export default function Footer() {
 
         <div className="posifoot2">
           <h1 className="textofoot">Contactanos</h1>
-          <a className="texft" href="">petpaw@info.com</a>
+          <a className="texft" href="">pawpet@info.com</a>
           <p className="texft">3511563748090</p>
         </div>
       </div>

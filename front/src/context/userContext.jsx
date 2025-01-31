@@ -27,13 +27,14 @@ export const UserProvider = ({ children }) => {
         }
 
     }, [])
-    const logout = () => {
+    const handleLogout = () => {
         localStorage.removeItem("pawpetToken")
         setUser(null)
+        
       }
 
     return (
-        <userContext.Provider value={{ user, setUser,logout }}>
+        <userContext.Provider value={{ user, setUser,handleLogout }}>
             {children}
         </userContext.Provider>
     )

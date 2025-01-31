@@ -12,7 +12,7 @@ export default function CaretakerRegisterViews() {
     const params = useParams()
     const id = params.id
     const [user, setUser] = useState(null)
-    const [currentForm, setCurrentForm] = useState(3);
+    const [currentForm, setCurrentForm] = useState(1);
 
     const nextForm = () => {
         setCurrentForm(currentForm + 1);

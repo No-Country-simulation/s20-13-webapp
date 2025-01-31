@@ -8,6 +8,8 @@ import About from './views/About'
 import OwnerRegisterViews from './views/OwnerRegisterViews'
 import SearchResults from './views/SearchResults'
 import CaretakerRegisterViews from './views/CaretakerRegisterViews'
+import ProfileView from './views/ProfileView'
+import UserLayout from './layout/UserLayout'
 
 export default function Router() {
   return (
@@ -15,13 +17,14 @@ export default function Router() {
 
       <Routes>
         <Route element={<AppHome />}>
+        <Route path="/" element={<Home />} />  
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/auth/register/owner/:id" element={<OwnerRegisterViews />} />
           <Route path="/auth/register/caretaker/:id" element={<CaretakerRegisterViews />} />
         </Route>
-        <Route element={<AppHome />}>
-          <Route path="/" element={<Home />} />
+        <Route element={<UserLayout />}>
+          <Route path="/profile" element={<ProfileView />} />               
           <Route path={"/caretaker/:id"} element={<CaretakerProfile />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>

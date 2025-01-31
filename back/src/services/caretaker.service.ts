@@ -1,4 +1,5 @@
-import { User, IUser, UserRole } from "../models/Users.model";
+import { User, IUser, UserRole, UserService } from "../models/Users.model";
+
 import { Types } from "mongoose";
 
 export class CaretakerService {
@@ -61,4 +62,34 @@ export class CaretakerService {
       throw new Error("Ha ocurrido un error inesperado");
     }
   }
+
+
+  
+// Método para filtrar cuidadores
+public async filterCaretakers(
+  neighborhood?: string,
+  petId?: string,
+  service?: UserService
+): Promise<IUser[]> {
+  const query: any = { role: UserRole.CARETAKER };
+  
+  if (neighborhood) query.neighborhood = neighborhood;
+  if (petId) query.pets = petId;
+  if (service) query.service = service;
+
+  try {
+    const caretakers = await User.find(query);
+    
+    if (caretakers.length === 0) {
+      throw new Error("No se encontraron cuidadores que cumplan los criterios");
+    }
+
+    return caretakers;
+  } catch (error) {
+    console.error("Error al filtrar cuidadores:", error);
+    throw new Error("Ha ocurrido un error inesperado");
+  }
+}
+
+
 }

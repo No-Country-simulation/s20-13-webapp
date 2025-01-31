@@ -12,6 +12,9 @@ router.get("/:id", caretakerController.getCaretakerByIdController);
 
 router.patch("/:id", caretakerController.updateCaretakerController);
 
+//filtros
+router.get("/filter", caretakerController.filterCaretakersController);
+
 //AVAILABILITY (se podria crear un router independiente)
 router.get(
   "/:caretakerId/availability",

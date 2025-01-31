@@ -15,9 +15,20 @@ interface Cost {
   day: number
 }
 
+<<<<<<< HEAD
 export enum PetType{
   DOG="dog",
   CAT="cat"
+=======
+export enum AvailabilityDay {
+  MONDAY = "monday",
+  TUESDAY = "tuesday",
+  WEDNESDAY = "wednesday",
+  THURSDAY = "thursday",
+  FRIDAY = "friday",
+  SATURDAY = "saturday",
+  SUNDAY = "sunday",
+>>>>>>> 050f223ebe8ba1a48774885bca70113f8f9811d5
 }
 
 

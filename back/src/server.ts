@@ -35,6 +35,10 @@ server.use("/api/auth", authRouter)
 server.use("/api/pets", petsRouter)
 server.use("/api/users", userRouter)
 server.use("/api/reviews", reviewsRouter)
+<<<<<<< HEAD
 server.use("/api/caretaker",caretakerRouter)
+=======
+server.use("/api/caretakers", caretakerRouter);
+>>>>>>> 050f223ebe8ba1a48774885bca70113f8f9811d5
 
 export default server;

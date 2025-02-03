@@ -83,6 +83,7 @@ export default function Form1({user,nextForm}) {
 
   }
 
+
   return (
     <main className="formuaaa">
       <div className="form-container">
@@ -94,15 +95,14 @@ export default function Form1({user,nextForm}) {
           {/* Contenedor para la imagen y el ícono de la cámara */}
           <div className="profile-picture-container">
             {
-              memoPicture ?
-                <img className='picture-img' src={memoPicture} height="150px" width="150px" alt="Foto de perfil" />
-                :  user?.profilePicture ? (  <img className='picture-img' src={user?.profilePicture} height="150px" width="150px" alt="Foto de perfil" /> 
-                ):( <svg width="150" height="150" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="24" rx="4" fill="#e0e0e0" />
-                  <path d="M7 10.5C7 9.67157 7.67157 9 8.5 9C9.32843 9 10 9.67157 10 10.5C10 11.3284 9.32843 12 8.5 12C7.67157 12 7 11.3284 7 10.5Z" fill="#9e9e9e" />
-                  <path fillRule="evenodd" clipRule="evenodd" d="M4 6C4 5.44772 4.44772 5 5 5H8L9 4H15L16 5H19C19.5523 5 20 5.44772 20 6V18C20 18.5523 19.5523 19 19 19H5C4.44772 19 4 18.5523 4 18V6ZM6 8V17H18V8H6ZM8 16H16L12 11L8 16Z" fill="#9e9e9e" />
-              </svg>)
-              
+               memoPicture ?
+               <img className='picture-img' src={memoPicture} height="150px" width="150px" alt="Foto Perfil" />
+               :
+               <svg width="150" height="150" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <rect width="24" height="24" rx="4" fill="#e0e0e0" />
+                   <path d="M7 10.5C7 9.67157 7.67157 9 8.5 9C9.32843 9 10 9.67157 10 10.5C10 11.3284 9.32843 12 8.5 12C7.67157 12 7 11.3284 7 10.5Z" fill="#9e9e9e" />
+                   <path fillRule="evenodd" clipRule="evenodd" d="M4 6C4 5.44772 4.44772 5 5 5H8L9 4H15L16 5H19C19.5523 5 20 5.44772 20 6V18C20 18.5523 19.5523 19 19 19H5C4.44772 19 4 18.5523 4 18V6ZM6 8V17H18V8H6ZM8 16H16L12 11L8 16Z" fill="#9e9e9e" />
+               </svg>
             }
 
             <label htmlFor="profile-picture-input" className="camera-icon">

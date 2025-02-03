@@ -1,8 +1,7 @@
 
 import { Link } from 'react-router';
-
-import Logo from './Logo';
 import { useState } from 'react';
+import Logo from './Logo';
 
 const Header = ({ user, handleLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,20 +11,26 @@ const Header = ({ user, handleLogout }) => {
   };
 
   return (
-    <header>
+    <>
       <div className="navbar">
-        <Logo />
+        {
+
+          <Link to={`${user? "/results" : "/"  }`}>
+            <Logo />
+          </Link>
+        }
+
 
         {
           user && <>
             <img
-                className='profile-picture'
-                onClick={handleMenu}
-                src={user.profilePicture}
-                alt="profilePicture"
-              />
+              className='profile-picture'
+              onClick={handleMenu}
+              src={user.profilePicture}
+              alt="profilePicture"
+            />
             <div className={`usermenu ${isMenuOpen ? 'active' : ''}`}>
-             
+
               <Link to={"/profile"}>Ver Perfil</Link>
               <button className='menu-btn' onClick={handleLogout}>Cerrar Sesión</button>
 
@@ -54,7 +59,7 @@ const Header = ({ user, handleLogout }) => {
         }
 
       </div>
-    </header>
+    </>
   );
 };
 

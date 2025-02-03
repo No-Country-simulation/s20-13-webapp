@@ -1,8 +1,27 @@
+import path from "path";
 import { User, IUser, UserRole, UserService } from "../models/Users.model";
 
 import { Types } from "mongoose";
+import { IMail, Mailing } from "../emails/mailing";
 
 export class CaretakerService {
+
+
+  //POST mail to caretakers
+  public async sendEmail(data: IMail): Promise<void> {
+
+    try {
+      await Mailing.contactCaretaker(data)
+
+    } catch (error) {
+      console.error("Error al enviar el correo:", error)
+      throw new Error("No se pudo enviar el correo")
+    }
+  }
+
+
+
+
   //GET all caretakers
   public async getAllCaretakers(): Promise<IUser[]> {
     try {
@@ -29,7 +48,7 @@ export class CaretakerService {
       const caretaker = await User.findOne({
         _id: id,
         role: UserRole.CARETAKER,
-      });
+      }).populate("availability").populate("reviews");
 
       return caretaker;
     } catch (error) {
@@ -64,32 +83,32 @@ export class CaretakerService {
   }
 
 
-  
-// Método para filtrar cuidadores
-public async filterCaretakers(
-  neighborhood?: string,
-  petId?: string,
-  service?: UserService
-): Promise<IUser[]> {
-  const query: any = { role: UserRole.CARETAKER };
-  
-  if (neighborhood) query.neighborhood = neighborhood;
-  if (petId) query.pets = petId;
-  if (service) query.service = service;
 
-  try {
-    const caretakers = await User.find(query);
-    
-    if (caretakers.length === 0) {
-      throw new Error("No se encontraron cuidadores que cumplan los criterios");
+  // Método para filtrar cuidadores
+  public async filterCaretakers(
+    neighborhood?: string,
+    petId?: string,
+    service?: UserService
+  ): Promise<IUser[]> {
+    const query: any = { role: UserRole.CARETAKER };
+
+    if (neighborhood) query.neighborhood = neighborhood;
+    if (petId) query.pets = petId;
+    if (service) query.service = service;
+
+    try {
+      const caretakers = await User.find(query);
+
+      if (caretakers.length === 0) {
+        throw new Error("No se encontraron cuidadores que cumplan los criterios");
+      }
+
+      return caretakers;
+    } catch (error) {
+      console.error("Error al filtrar cuidadores:", error);
+      throw new Error("Ha ocurrido un error inesperado");
     }
-
-    return caretakers;
-  } catch (error) {
-    console.error("Error al filtrar cuidadores:", error);
-    throw new Error("Ha ocurrido un error inesperado");
   }
-}
 
 
 }

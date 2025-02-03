@@ -16,7 +16,7 @@ export default function Caretakers({ neighborhood }) {
     };
 
     useEffect(() => {
-        console.log(filters);
+        
         const fetchCaretakers = async () => {
             setIsLoading(true);
             try {

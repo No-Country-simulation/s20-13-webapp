@@ -1,7 +1,7 @@
 import { Router } from "express";
 import UserController from "../controllers/userController";
-import { authenticate } from "../middleware/authenticate";
 import { upload } from "../middleware/upload";
+import { authenticate } from "../middleware/authenticate";
 
 const router=Router()
 

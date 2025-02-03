@@ -1,14 +1,15 @@
 import React from 'react'
 
 export default function Footer() {
+  
   return (
-    <footer>
+    <footer className='futer'>
 
       <div className="posifoot3">
 
         <div className="posifoot">
-          <h1 className="textofoot">Busca por servico</h1>
-          <h1 className="textofoot">Busca por ubicación</h1>
+          <h1 className="textofoot">Buscar por servicio</h1>
+          <h1 className="textofoot">Buscar por ubicación</h1>
         </div>
 
         <div className="posifoot2">
@@ -17,7 +18,6 @@ export default function Footer() {
           <p className="texft">3511563748090</p>
         </div>
       </div>
-
 
     </footer>
 

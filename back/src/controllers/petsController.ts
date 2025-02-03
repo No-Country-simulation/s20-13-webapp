@@ -8,7 +8,6 @@ export class PetsController {
 
   constructor() {
     this.petsService = new PetsService();
-
     this.getAllPetsByUser = this.getAllPetsByUser.bind(this);
     this.getPet = this.getPet.bind(this);
     this.createPet = this.createPet.bind(this);

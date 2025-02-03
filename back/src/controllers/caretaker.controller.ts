@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CaretakerService } from "../services/caretaker.service";
 import { UserService } from "../models/Users.model";
+import { IMail, Mailing } from "../emails/mailing";
 
 
 export class CaretakerController {
@@ -13,6 +14,54 @@ export class CaretakerController {
     this.getAllCaretakersController =
       this.getAllCaretakersController.bind(this);
   }
+
+  //POST /api/caretaker/:caretakerId/mailing
+  public sendEmail = async (
+    req: Request,
+    res: Response
+  ): Promise<any> => {
+
+    const owner = req.user!
+    const { subject, text } = req.body
+    const { caretakerId } = req.params
+
+    try {
+      if (!owner.email || !subject || !text || !caretakerId) {
+        return res.status(404).json({
+          success: false,
+          message: "Existen campos vacíos"
+        })
+      }
+      const caretaker = await this.caretakerService.getCaretakerById(caretakerId)
+      if (!caretaker) {
+        return res.status(404).json({
+          success: false,
+          message: "Cuidador no encontrado",
+        });
+      }
+      const data: IMail = {
+        ownerEmail: owner.email,
+        caretakerEmail: caretaker.email,
+        caretakerName: caretaker.name,
+        name: owner.name,
+        lastName: owner.lastName!,
+        subject: subject,
+        text: text,
+      }
+
+      await this.caretakerService.sendEmail(data)
+
+      return res.status(200).json("Correo enviado con éxito")
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Ha ocurrido un error inesperado"
+      })
+    }
+
+  }
+
+
 
   //GET /api/caretaker/
   public getAllCaretakersController = async (
@@ -95,29 +144,29 @@ export class CaretakerController {
   }
 
 
-// filtrado de cuidadores
-public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
-  const { neighborhood, petId, service } = req.query;
+  // filtrado de cuidadores
+  public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
+    const { neighborhood, petId, service } = req.query;
 
-  try {
-    const caretakers = await this.caretakerService.filterCaretakers(
-      neighborhood as string,
-      petId as string,
-      service as UserService
-    );
+    try {
+      const caretakers = await this.caretakerService.filterCaretakers(
+        neighborhood as string,
+        petId as string,
+        service as UserService
+      );
 
-    return res.status(200).json({
-      success: true,
-      message: "Cuidadores filtrados con éxito",
-      data: caretakers,
-    });
-  } catch (error: any) {
-    return res.status(500).json({
-      success: false,
-      message: error.message || "Ha ocurrido un error inesperado",
-    });
+      return res.status(200).json({
+        success: true,
+        message: "Cuidadores filtrados con éxito",
+        data: caretakers,
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Ha ocurrido un error inesperado",
+      });
+    }
   }
-}
 
 
 }

@@ -63,6 +63,11 @@ export class ReviewsController {
     const reviewData = req.body;
     const { id } = req.params;
 
+      if(!req.user){
+       res.status(403).json({error:"Es necesario estar autenticado"})
+       return 
+      }
+ 
     try {
       const newReview = await this.reviewsService.createReview(reviewData,id);
       res.status(201).json("Calificación creada con éxito");

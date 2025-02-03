@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { CaretakerService } from "../services/caretaker.service";
-import { UserService } from "../models/Users.model";
-
 
 export class CaretakerController {
   private caretakerService: CaretakerService;
@@ -9,12 +7,14 @@ export class CaretakerController {
   constructor() {
     this.caretakerService = new CaretakerService();
 
-    //bindeo de los metodos
-    this.getAllCaretakersController =
-      this.getAllCaretakersController.bind(this);
+    // Bindeo de los métodos
+    this.getAllCaretakersController = this.getAllCaretakersController.bind(this);
+    this.getCaretakerByIdController = this.getCaretakerByIdController.bind(this);
+    this.updateCaretakerController = this.updateCaretakerController.bind(this);
+    this.filterCaretakersController = this.filterCaretakersController.bind(this);
   }
 
-  //GET /api/caretaker/
+  // GET /api/caretaker/
   public getAllCaretakersController = async (
     req: Request,
     res: Response
@@ -35,7 +35,7 @@ export class CaretakerController {
     }
   };
 
-  //GET /api/caretaker/:id
+  // GET /api/caretaker/:id
   public getCaretakerByIdController = async (
     req: Request,
     res: Response
@@ -64,23 +64,22 @@ export class CaretakerController {
     }
   };
 
-  //PATCH /api/caretaker/:id
-  public async updateCaretakerController(
+  // PATCH /api/caretaker/:id
+  public updateCaretakerController = async (
     req: Request,
     res: Response
-  ): Promise<any> {
+  ): Promise<any> => {
     try {
       const { id } = req.params;
-      const updatedCaretaker = await this.caretakerService.updateCaretaker(
-        id,
-        req.body
-      );
+      const updatedCaretaker = await this.caretakerService.updateCaretaker(id, req.body);
+
       if (!updatedCaretaker) {
         return res.status(404).json({
           success: false,
           message: "Cuidador no encontrado",
         });
       }
+
       return res.status(200).json({
         success: true,
         message: "Cuidador actualizado con éxito",
@@ -92,32 +91,40 @@ export class CaretakerController {
         message: error.message || "Ha ocurrido un error inesperado",
       });
     }
-  }
+  };
 
+  // Filtrado de cuidadores
+  public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
+    const { zone, service } = req.query;
 
-// filtrado de cuidadores
-public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
-  const { neighborhood, petId, service } = req.query;
+    console.log("Filtros recibidos:", { zone, service });
 
-  try {
-    const caretakers = await this.caretakerService.filterCaretakers(
-      neighborhood as string,
-      petId as string,
-      service as UserService
-    );
+    try {
+      const caretakers = await this.caretakerService.filterCaretakers(
+        String(zone || ""),
+        String(service || "")
+      );
 
-    return res.status(200).json({
-      success: true,
-      message: "Cuidadores filtrados con éxito",
-      data: caretakers,
-    });
-  } catch (error: any) {
-    return res.status(500).json({
-      success: false,
-      message: error.message || "Ha ocurrido un error inesperado",
-    });
-  }
-}
+      if (caretakers.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "Cuidadores no encontrados",
+        });
+      }
 
+      return res.status(200).json({
+        success: true,
+        message: "Cuidadores filtrados con éxito",
+        data: caretakers,
+      });
+    } catch (error: any) {
+      console.error("Error en el controlador:", error);
+
+      return res.status(500).json({
+        success: false,
+        message: error.message || "Ha ocurrido un error inesperado",
+      });
+    }
+};
 
 }

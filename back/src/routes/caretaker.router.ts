@@ -6,14 +6,16 @@ const router = Router();
 const caretakerController = new CaretakerController();
 const availabilityController = new AvailabilityController();
 
+//filtros
+router.get("/filter", caretakerController.filterCaretakersController);
+
+
 //CARETAKERS
 router.get("/", caretakerController.getAllCaretakersController);
 router.get("/:id", caretakerController.getCaretakerByIdController);
 
 router.patch("/:id", caretakerController.updateCaretakerController);
 
-//filtros
-router.get("/filter", caretakerController.filterCaretakersController);
 
 //AVAILABILITY (se podria crear un router independiente)
 router.get(

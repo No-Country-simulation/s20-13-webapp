@@ -1,9 +1,8 @@
 import { User, IUser, UserRole, UserService } from "../models/Users.model";
-
 import { Types } from "mongoose";
 
 export class CaretakerService {
-  //GET all caretakers
+  // GET all caretakers
   public async getAllCaretakers(): Promise<IUser[]> {
     try {
       const caretakers = await User.find({ role: UserRole.CARETAKER });
@@ -19,13 +18,9 @@ export class CaretakerService {
     }
   }
 
-  //GET caretaker by ID
+  // GET caretaker by ID
   public async getCaretakerById(id: string): Promise<IUser | null> {
     try {
-      if (!id) throw new Error("El ID del cuidador es requerido");
-      if (!Types.ObjectId.isValid(id))
-        throw new Error("ID de cuidador inválido");
-
       const caretaker = await User.findOne({
         _id: id,
         role: UserRole.CARETAKER,
@@ -38,7 +33,7 @@ export class CaretakerService {
     }
   }
 
-  //UPDATE caretaker
+  // UPDATE caretaker
   public async updateCaretaker(
     id: string,
     data: Partial<IUser>
@@ -53,7 +48,7 @@ export class CaretakerService {
       const updatedCaretaker = await User.findOneAndUpdate(
         { _id: id, role: UserRole.CARETAKER },
         { $set: data },
-        { new: true } //ultima version
+        { new: true } // última versión
       );
 
       return updatedCaretaker;
@@ -63,33 +58,27 @@ export class CaretakerService {
     }
   }
 
+  // Método para filtrar cuidadores
+  public async filterCaretakers(zone?: string, service?: string): Promise<IUser[]> {
+    const query: any = { role: UserRole.CARETAKER };
 
-  
-// Método para filtrar cuidadores
-public async filterCaretakers(
-  neighborhood?: string,
-  petId?: string,
-  service?: UserService
-): Promise<IUser[]> {
-  const query: any = { role: UserRole.CARETAKER };
-  
-  if (neighborhood) query.neighborhood = neighborhood;
-  if (petId) query.pets = petId;
-  if (service) query.service = service;
+    if (zone) query.zone = { $regex: new RegExp(zone, "i") };
+    if (service) query.service = { $regex: new RegExp(service, "i") };
 
-  try {
-    const caretakers = await User.find(query);
-    
-    if (caretakers.length === 0) {
-      throw new Error("No se encontraron cuidadores que cumplan los criterios");
+    console.log("Consulta de cuidadores:", query);
+
+    try {
+      const caretakers = await User.find(query);
+
+      if (caretakers.length === 0) {
+        console.warn("No se encontraron cuidadores que cumplan los criterios");
+      }
+
+      return caretakers;
+    } catch (error) {
+      console.error("Error al filtrar cuidadores:", error);
+      throw new Error("Ha ocurrido un error inesperado");
     }
-
-    return caretakers;
-  } catch (error) {
-    console.error("Error al filtrar cuidadores:", error);
-    throw new Error("Ha ocurrido un error inesperado");
-  }
 }
-
 
 }

@@ -20,13 +20,11 @@ export enum PetType{
   CAT="cat"
 }
 
-
 export interface IUser extends Document {
   name: string;
   lastName?: string;
   email: string;
   profilePicture?: string;
-
   about?: string;
   nationality?: string;
   neighborhood?: string;

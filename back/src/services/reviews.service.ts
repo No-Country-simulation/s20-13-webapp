@@ -61,6 +61,7 @@ export class ReviewsService {
       }
 
     public async createReview(data: any,id:any): Promise<IReviews> {
+        
         try {
             if (!id) throw new Error("El id del usuario es requerido");
             if (!Types.ObjectId.isValid(id))
@@ -75,7 +76,8 @@ export class ReviewsService {
             const newReview = new Reviews(data)
             newReview.user = id
             await newReview.save()
-            
+            user.reviews?.push(newReview.id)
+            await user.save()
             return newReview;
         } catch (error: any) {
             console.error("Error al crear la calificación", error);

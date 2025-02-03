@@ -18,7 +18,7 @@ export default function Login() {
             
             if(data.user.isActive){
                 localStorage.setItem('pawpetToken',token)
-                navigate("/")
+                navigate("/results")
                 window.location.reload()
             }else{
                 navigate(`/auth/register/${role}/${data.user._id}`)

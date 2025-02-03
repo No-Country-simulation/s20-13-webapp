@@ -1,8 +1,27 @@
+import path from "path";
 import { User, IUser, UserRole, UserService } from "../models/Users.model";
 import { Types } from "mongoose";
+import { IMail, Mailing } from "../emails/mailing";
 
 export class CaretakerService {
-  // GET all caretakers
+
+
+  //POST mail to caretakers
+  public async sendEmail(data: IMail): Promise<void> {
+
+    try {
+      await Mailing.contactCaretaker(data)
+
+    } catch (error) {
+      console.error("Error al enviar el correo:", error)
+      throw new Error("No se pudo enviar el correo")
+    }
+  }
+
+
+
+
+  //GET all caretakers
   public async getAllCaretakers(): Promise<IUser[]> {
     try {
       const caretakers = await User.find({ role: UserRole.CARETAKER });
@@ -24,7 +43,7 @@ export class CaretakerService {
       const caretaker = await User.findOne({
         _id: id,
         role: UserRole.CARETAKER,
-      });
+      }).populate("availability").populate("reviews");
 
       return caretaker;
     } catch (error) {

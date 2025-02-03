@@ -44,12 +44,16 @@ class UserController {
     }
 
     static async profile(req: Request, res: Response) {
+
+       
+       const user=req.user
+       console.log(user)
         try {
-            if (!req.user) {
+            if (!user) {
                 res.status(404).json({ error: "No existe un usuario con ese id" });
                 return;
             }
-            res.status(200).json(req.user);
+            res.status(200).json(user);
         } catch (err) {
             res.status(400).json({ error: "Hubo un error al buscar un usuario" });
         }

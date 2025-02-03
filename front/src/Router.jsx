@@ -24,7 +24,7 @@ export default function Router() {
           <Route path="/auth/register/caretaker/:id" element={<CaretakerRegisterViews />} />
         </Route>
         <Route element={<UserLayout />}>
-          <Route path="/profile" element={<ProfileView />} />
+          <Route path="/profile" element={<ProfileView/>} />
           <Route path={"/caretaker/:id"} element={<CaretakerProfile />} />
           <Route path="/results" element={<SearchResults />} />
         </Route>

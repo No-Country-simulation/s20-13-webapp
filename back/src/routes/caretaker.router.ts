@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CaretakerController } from "../controllers/caretaker.controller";
 import { AvailabilityController } from "../controllers/availability.controller";
+import { authenticate } from "../middleware/authenticate";
 
 const router = Router();
 const caretakerController = new CaretakerController();
@@ -37,5 +38,11 @@ router.delete(
   "/:caretakerId/availability/:availabilityId",
   availabilityController.deleteAvailabilityController
 );
+
+
+// MAILING //
+
+router.post("/:caretakerId/mailing",authenticate,
+  caretakerController.sendEmail)
 
 export default router;

@@ -39,6 +39,7 @@ class AuthController {
             }
 
             const token = generateJWT({ id: user._id })
+            console.log("Autenticado")
             res.status(200).json({token, user})
 
 

@@ -147,22 +147,22 @@ export class CaretakerController {
   // Filtrado de cuidadores
   public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
     const { zone, service } = req.query;
-
+  
     console.log("Filtros recibidos:", { zone, service });
-
+  
     try {
       const caretakers = await this.caretakerService.filterCaretakers(
         String(zone || ""),
         String(service || "")
       );
-
+  
       if (caretakers.length === 0) {
         return res.status(404).json({
           success: false,
           message: "Cuidadores no encontrados",
         });
       }
-
+  
       return res.status(200).json({
         success: true,
         message: "Cuidadores filtrados con éxito",
@@ -170,12 +170,13 @@ export class CaretakerController {
       });
     } catch (error: any) {
       console.error("Error en el controlador:", error);
-
+  
       return res.status(500).json({
         success: false,
         message: error.message || "Ha ocurrido un error inesperado",
       });
     }
-};
+  };
+  
 
 }

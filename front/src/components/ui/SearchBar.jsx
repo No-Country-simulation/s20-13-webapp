@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { zones } from "../../data/zones";  // Import the zones data
 
 const serviceMapping = {
   "Cuidado": "caretaker",
   "Paseo": "dogwalker"
 };
 
-export default function SearchBar({ updateFilters }) {
+export default function SearchBar({ setSelectedProvince }) {
   const [service, setService] = useState("");
-  const [zone, setZone] = useState("");
+  const [province, setProvince] = useState("");
   const [focus, setFocus] = useState("service");
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
+  const searchBarRef = useRef(null);
 
   const serviceOptions = Object.keys(serviceMapping);
-  const regionOptions = ["Buenos Aires", "Córdoba", "Santa Fe"];
+  const provinceOptions = zones.map((zone) => zone.province); 
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -26,9 +28,9 @@ export default function SearchBar({ updateFilters }) {
           .sort((a, b) => (a.toLowerCase().startsWith(value.toLowerCase()) ? -1 : 1))
       );
     } else {
-      setZone(value);
+      setProvince(value);  // Changed to province
       setSuggestions(
-        regionOptions
+        provinceOptions
           .filter((option) => option.toLowerCase().includes(value.toLowerCase()))
           .sort((a, b) => (a.toLowerCase().startsWith(value.toLowerCase()) ? -1 : 1))
       );
@@ -39,7 +41,8 @@ export default function SearchBar({ updateFilters }) {
     if (focus === "service") {
       setService(option);
     } else {
-      setZone(option);
+      setProvince(option);
+      setSelectedProvince(option);  
     }
     setSuggestions([]);
   };
@@ -47,20 +50,33 @@ export default function SearchBar({ updateFilters }) {
   const handleSearch = () => {
     const mappedService = serviceMapping[service] || service;
     const params = new URLSearchParams();
-
+  
     if (mappedService) {
       params.append("service", mappedService);
     }
-    if (zone) {
-      params.append("zone", encodeURIComponent(zone));
+    if (province) {
+      params.append("zone", province);
     }
-
+  
     console.log("URL generada:", `/results?${params.toString()}`);
     navigate(`/results?${params.toString()}`, { replace: true });
   };
 
+  const handleClickOutside = (event) => {
+    if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+      setSuggestions([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="search-bar-container">
+    <div className="search-bar-container" ref={searchBarRef}>
       <div className="search-bar">
         <input
           type="text"
@@ -76,14 +92,14 @@ export default function SearchBar({ updateFilters }) {
         />
         <input
           type="text"
-          value={zone}
-          placeholder="Región"
+          value={province}  
+          placeholder="Provincia" 
           onChange={handleInputChange}
           onClick={() => {
-            setFocus("zone");
-            setSuggestions(regionOptions);
+            setFocus("province");
+            setSuggestions(provinceOptions);
           }}
-          onFocus={() => setSuggestions(regionOptions)}
+          onFocus={() => setSuggestions(provinceOptions)}
           autoComplete="off"
         />
         <button type="button" onClick={handleSearch}>

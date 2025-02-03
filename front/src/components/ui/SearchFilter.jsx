@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { neighborhoods } from "../../data/neighborhood";
+import React, { useState, useEffect } from "react";
+import { zones } from "../../data/zones";
 
-export default function SearchFilter({ updateFilters }) {
+export default function SearchFilter({ updateFilters, selectedProvince }) {
   const [filters, setFilters] = useState({
     pets: "",
     neighborhood: "",
@@ -22,6 +22,19 @@ export default function SearchFilter({ updateFilters }) {
     });
   };
 
+ 
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      province: selectedProvince,
+      neighborhood: "", 
+    }));
+  }, [selectedProvince]);
+
+ 
+  const selectedZone = zones.find(zone => zone.province === selectedProvince);
+  const neighborhoods = selectedZone ? selectedZone.neighborhoods : [];
+
   return (
     <div className="search-filter-container">
       <p>Filtrar por:</p>
@@ -35,10 +48,10 @@ export default function SearchFilter({ updateFilters }) {
         </select>
 
         {/* Barrio */}
-        <select name="neighborhood" value={filters.neighborhood} onChange={handleChange}>
+        <select name="neighborhood" value={filters.neighborhood} onChange={handleChange} disabled={!selectedProvince}>
           <option value="">Barrio</option>
           {neighborhoods.map((neighborhood) => (
-            <option key={neighborhood.id} value={neighborhood.name}>
+            <option key={neighborhood.name} value={neighborhood.name}>
               {neighborhood.name}
             </option>
           ))}

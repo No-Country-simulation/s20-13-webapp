@@ -17,17 +17,21 @@ export default function SearchResults() {
     maxPrice: "",
     order: "",
   });
-
+  const [selectedProvince, setSelectedProvince] = useState("");
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const service = queryParams.get("service");
-    const zone = queryParams.get("zone");
+    const zone = queryParams.get("zone"); 
 
     setFilters((prevFilters) => ({
       ...prevFilters,
       service: service || "",
       zone: zone || "",
     }));
+
+    if (zone) {
+      setSelectedProvince(zone);
+    }
   }, [location.search]);
 
   const updateCaretakersCount = (count) => {
@@ -40,10 +44,10 @@ export default function SearchResults() {
 
   return (
     <div className="search-results-container">
-      <SearchBar updateFilters={updateFilters} />
+      <SearchBar setSelectedProvince={setSelectedProvince} />
       <h2>Resultados:</h2>
       <p>{caretakersCount} personas</p>
-      <SearchFilter updateFilters={updateFilters} />
+      <SearchFilter updateFilters={updateFilters} selectedProvince={selectedProvince} />
       <Caretakers filters={filters} updateCaretakersCount={updateCaretakersCount} cardClassName="caretaker-card-search" />
     </div>
   );

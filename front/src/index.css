@@ -1,7 +1,31 @@
+/* ------------------------------------fonts----------------------------------------- */
+
+:root {
+  --font-inter: "Inter", serif;
+  --font-jua: "Jua", serif;
+}
+
+.inter{
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+.jua-regular {
+  font-family: "Jua", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: var(--font-inter);
 }
 
 .main h1 {
@@ -11,7 +35,8 @@
 
 
 
-/*/////////footer////////*/
+/* ------------------------------------footer----------------------------------------- */
+
 .textofoot {
 
   font-size: 20px;
@@ -351,6 +376,7 @@ border: solid;
 }
 
 .search-bar button {
+  font-family: var(--font-jua);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -483,9 +509,19 @@ border: solid;
 }
 
 /* -------------------------------------------------Search results------------------------------------ */
+.search-results-container{
+  padding: 0 50px;
+}
+.search-results-container > h2 {
+  font-family: var(--font-jua);
+  font-size: 30px;
+  display: inline;
+  margin-right: 20px;  
 
-.search-results-container h1 {
-  color: #0056b3;
+
+}
+.search-results-container > p{
+  display: inline;
 }
 
 /* ------------------------------------------------------------------------------------ */
@@ -1159,4 +1195,203 @@ padding: 0;
 
 }
 
+
+/* ------------------------caretakersCards------------------------ */
+
+.caretaker-card{
+  width: 280px;  
+  background-color:rgba(191, 191, 191, 0.22);
+  padding: 15px;
+  border-radius: 15px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+}
+.caretaker-card p{
+  margin: 5px 0;
+  font-size: 14px;
+  
+
+}
+.caretaker-card-info{
+
+width: 250px;
+  height: 250px;
+
+position: relative;
+
+}
+.caretaker-card-info img{
+  width: 100%;
+  max-height: 250px;
+  
+  border-radius: 15px;
+  position: relative;
+}
+.caretaker-card-info-text {
+  position: absolute;
+  color: #fff;
+
+  bottom: 10px;
+  left: 5px;
+  z-index: 400;
+  font-size: 14px;
+  font-weight: 100;
+
+}
+.caretaker-card-info-text p {
+padding: 0;
+margin: 0;
+display: flex;
+
+
+}
+.caretaker-card-info-text svg {
+ font-size: 20px;
+
+  }
+
+
+.caretaker-card-service{
+  font-size: 16px;
+
+}
+.caretaker-card-description{
+  font-weight: 200;
+}
+.caretaker-card-cost{
+  text-align: end;
+  font-weight: 200;
+  
+  
+
+}
+.caretaker-card-cost span{
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 25px;
+  color: rgba(105, 128, 177, 1);
+  font-weight: 700;
+  
+
+}
+.caretaker-card-btn{
+  margin-top: 15px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #9c7a00;
+  padding: 8px;
+  text-align: center;
+  align-self: center;
+  font-family: var(--font-jua);
+  font-size: 16px;
+}
+
+
+/* styles for caretakersCard in SearchResultsView */
+
+
+.caretaker-card-search {
+  width: 550px;
+  background-color: rgba(191, 191, 191, 0.22);
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  
+justify-content: flex-start;
+  position: relative;
+}
+
+.caretaker-card-search p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.caretaker-card-search .caretaker-card-info {
+  width: 250px;
+  height: 250px;
+  display: flex;
+}
+
+.caretaker-card-search img {
+  width: 230px;
+  height: 250px;
+  border-radius: 15px;
+  position: relative;
+}
+
+.caretaker-card-search .caretaker-card-info-text {
+  width: 100%;
+  position: absolute;
+  top: 30px;
+  left: 250px;
+  color: #000;
+  z-index: 400;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.caretaker-card-search .caretaker-card-info-text p {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.caretaker-card-search .caretaker-card-info-text svg {
+  font-size: 20px;
+}
+
+.caretaker-card-search .caretaker-card-text {
+  margin-top: 90px;
+  margin-left: 20px;
+}
+
+.caretaker-card-search .caretaker-reviews {
+  position: absolute;
+  right: 30px;
+  top: 25px;
+}
+
+.caretaker-card-search .caretaker-card-service {
+  font-size: 16px;
+}
+
+.caretaker-card-search .caretaker-card-description {
+  font-weight: 200;
+}
+
+.caretaker-card-search .caretaker-card-cost {
+  text-align: end;
+  font-weight: 200;
+  position: absolute;
+  right: 20px;
+  bottom: 70px;
+}
+
+.caretaker-card-search .caretaker-card-cost span {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 25px;
+  color: rgba(105, 128, 177, 1);
+  font-weight: 700;
+}
+
+.caretaker-card-search .caretaker-card-btn {
+  margin-top: 15px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #9c7a00;
+  padding: 8px;
+  text-align: center;
+  align-self: center;
+  font-family: var(--font-jua);
+  font-size: 16px;
+  position: absolute;
+  bottom: 15px;
+  right: 80px;
+}
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { neighborhoods } from "../../data/neighborhood";
 
 export default function SearchFilter({ updateFilters }) {
-
   const [filters, setFilters] = useState({
-    petType: "",
+    pets: "",
     neighborhood: "",
-    rating: "",
+    reviews: "",
     maxPrice: "",
     order: "",
   });
@@ -27,7 +27,7 @@ export default function SearchFilter({ updateFilters }) {
       <p>Filtrar por:</p>
       <div className="search-filter">
         {/* Tipo de mascota */}
-        <select name="petType" value={filters.petType} onChange={handleChange}>
+        <select name="pets" value={filters.pets} onChange={handleChange}>
           <option value="">Tipo de mascota</option>
           <option value="Perro">Perro</option>
           <option value="Gato">Gato</option>
@@ -37,13 +37,15 @@ export default function SearchFilter({ updateFilters }) {
         {/* Barrio */}
         <select name="neighborhood" value={filters.neighborhood} onChange={handleChange}>
           <option value="">Barrio</option>
-          <option value="San Telmo">San Telmo</option>
-          <option value="Palermo">Palermo</option>
-          <option value="Recoleta">Recoleta</option>
+          {neighborhoods.map((neighborhood) => (
+            <option key={neighborhood.id} value={neighborhood.name}>
+              {neighborhood.name}
+            </option>
+          ))}
         </select>
 
         {/* Valoración */}
-        <select name="rating" value={filters.rating} onChange={handleChange}>
+        <select name="reviews" value={filters.reviews} onChange={handleChange}>
           <option value="">Valoración mínima</option>
           <option value="1">1 estrella</option>
           <option value="2">2 estrellas</option>

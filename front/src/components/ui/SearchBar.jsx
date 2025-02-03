@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function SearchBar() {
-  const [service, setService] = useState(""); 
-  const [zone, setZone] = useState(""); 
-  const [focus, setFocus] = useState("service"); 
-  const [suggestions, setSuggestions] = useState([]); // sugerencias 
+const serviceMapping = {
+  "Cuidado": "caretaker",
+  "Paseo": "dogwalker"
+};
+
+export default function SearchBar({ updateFilters }) {
+  const [service, setService] = useState("");
+  const [zone, setZone] = useState("");
+  const [focus, setFocus] = useState("service");
+  const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
-  const serviceOptions = ["Cuidado", "Guardería", "Adiestramiento", "Veterinario"];
-  const zoneOptions = ["Córdoba", "Buenos Aires", "Mendoza", "Rosario"];
+  const serviceOptions = Object.keys(serviceMapping);
+  const regionOptions = ["Buenos Aires", "Córdoba", "Santa Fe"];
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -23,7 +28,7 @@ export default function SearchBar() {
     } else {
       setZone(value);
       setSuggestions(
-        zoneOptions
+        regionOptions
           .filter((option) => option.toLowerCase().includes(value.toLowerCase()))
           .sort((a, b) => (a.toLowerCase().startsWith(value.toLowerCase()) ? -1 : 1))
       );
@@ -40,7 +45,18 @@ export default function SearchBar() {
   };
 
   const handleSearch = () => {
-    navigate(`/results?service=${service}&zone=${zone}`);
+    const mappedService = serviceMapping[service] || service;
+    const params = new URLSearchParams();
+
+    if (mappedService) {
+      params.append("service", mappedService);
+    }
+    if (zone) {
+      params.append("zone", encodeURIComponent(zone));
+    }
+
+    console.log("URL generada:", `/results?${params.toString()}`);
+    navigate(`/results?${params.toString()}`, { replace: true });
   };
 
   return (
@@ -61,13 +77,13 @@ export default function SearchBar() {
         <input
           type="text"
           value={zone}
-          placeholder="Localidad"
+          placeholder="Región"
           onChange={handleInputChange}
           onClick={() => {
             setFocus("zone");
-            setSuggestions(zoneOptions);
+            setSuggestions(regionOptions);
           }}
-          onFocus={() => setSuggestions(zoneOptions)}
+          onFocus={() => setSuggestions(regionOptions)}
           autoComplete="off"
         />
         <button type="button" onClick={handleSearch}>

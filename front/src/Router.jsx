@@ -15,7 +15,6 @@ import NewPet from './components/ui/NewPet'
 export default function Router() {
   return (
     <BrowserRouter>
-
       <Routes>
         <Route element={<AppHome />}>
           <Route path="/" element={<Home />} />
@@ -30,7 +29,6 @@ export default function Router() {
           <Route path="/results" element={<SearchResults />} />
           <Route path="/user/:id/newpet" element={<NewPet />} />
         </Route>
-
       </Routes>
     </BrowserRouter >
   )

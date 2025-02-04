@@ -5,7 +5,7 @@ import { isAxiosError } from 'axios'
 import Form1 from '../components/auth/Form1'
 import Form2 from '../components/auth/Form2'
 import Form3 from '../components/auth/Form3'
-import RegisterCongratulations from '../components/auth/RegisterCongratulations'
+import  RegisterCongratulations  from '../components/auth/RegisterCongratulations'
 
 export default function OwnerRegisterViews() {
 
@@ -41,7 +41,7 @@ export default function OwnerRegisterViews() {
             {currentForm === 1 && <Form1 user={user} nextForm={nextForm} />}
             {currentForm === 2 && <Form2  prevForm={prevForm} nextForm={nextForm} />}
             {currentForm === 3 && <Form3  nextForm={nextForm} />}
-            {currentForm === 4 && <RegisterCongratulations />}
+            {currentForm === 4 && <RegisterCongratulations/>}
         </>
     )
 }

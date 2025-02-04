@@ -2,6 +2,7 @@
 import { Link } from 'react-router';
 import { useState } from 'react';
 import Logo from './Logo';
+import { CiLogout } from "react-icons/ci";
 
 const Header = ({ user, handleLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,8 +33,8 @@ const Header = ({ user, handleLogout }) => {
             <div className={`usermenu ${isMenuOpen ? 'active' : ''}`}>
 
               <Link to={"/profile"}>Ver Perfil</Link>
-              <button className='menu-btn' onClick={handleLogout}>Cerrar Sesión</button>
-
+              <button className='menu-btn' onClick={handleLogout}>Cerrar Sesión  <CiLogout/></button>
+             
             </div>
 
           </>

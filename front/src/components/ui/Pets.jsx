@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../lib/axios';
 import { isAxiosError } from 'axios';
+import Pet from './Pet';
 
 export default function Pets({ id }) {
     const [pets, setPets] = useState([])
+    const [refetch,setRefetch]= useState(false)
     useEffect(() => {
         const fetchPets = async () => {
             try {
@@ -16,32 +18,33 @@ export default function Pets({ id }) {
             }
         };
         fetchPets();
-    }, [id]);
+    }, [id,refetch]);
 
-    console.log(pets)
+
+
+
+    const onDelete=async(petId)=>{
+
+        try {
+            const {request}=await api.delete(`/pets/delete/${petId}`)
+            console.log(request)
+            setRefetch(!refetch)
+        } catch (error) {
+            if(isAxiosError(error) && error.response){
+                console.log(error.response.data)
+            }
+        }
+    }
+
+
     return (
-        <div>
-
-            <div className="pet-card">
-
+        <div className='section-pets'>
                 {
                     pets ? pets.map(pet => (
-                        <div key={pet._id} className="owner-profile">
-                            <img
-                                className="picture-profile"
-                                src={pets[0].image}
-                                alt="Imagen Mascota"
-                            />
-                            <div>
-                                <h2 className=""></h2>
-                                <p>
+                        <Pet onDelete={onDelete} pet={pet} key={pet._id} />
 
-                                </p>
-                            </div>
-                        </div>
                     )) : <p>No se encontraron mascotas</p>
                 }
-            </div>
         </div>
     )
 }

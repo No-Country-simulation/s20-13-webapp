@@ -41,9 +41,12 @@ function CaretakerCard({ caretaker, className = "" }) {
           Precio por hora: <span>${caretaker.cost}</span>
         </p>
       </div>
+      <div>
       <Link to={linkTo} className="caretaker-card-btn">
         {user ? "Contactar Servicio" : "Inicia Sesión para contactar"}
       </Link>
+      </div>
+    
     </div>
   );
 }

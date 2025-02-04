@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import api from "../../lib/axios"
 import ErrorMessage from "../ui/ErrorMessage"
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const petOptions = [
     {
@@ -21,8 +21,8 @@ const speciesTranslation = {
   };
   
 
-export default function Form3({  nextForm }) {
-
+export default function NewPet() {
+    const navigate=useNavigate()
     const params = useParams();
     const id = params.id;
 
@@ -91,7 +91,7 @@ export default function Form3({  nextForm }) {
         try {
             const request = await api.post("/pets/create", formdata)
             if (request.status === 201) {
-                nextForm()
+                navigate("/profile")
             }
            
 

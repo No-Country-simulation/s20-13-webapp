@@ -38,14 +38,14 @@ function CaretakerProfile() {
         <h2>
           {caretaker.name} {caretaker.lastName}
         </h2>
-        <div>
+        
           <p className="p-service">{dictionaryService[caretaker.service]}</p>
           <p>{caretaker.about}</p>
           <p>Tarifa por hora: ${caretaker.cost}</p>
           <p>
             {caretaker.zone}, {caretaker.neighborhood}
           </p>
-        </div>
+      
         <Schedule availability={caretaker.availability} />
       </div>
       <ContactCard caretaker={caretaker} />

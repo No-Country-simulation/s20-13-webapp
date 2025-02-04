@@ -1,5 +1,6 @@
 import { useUser } from "../hooks/useUser";
 import Pets from "../components/ui/Pets";
+import { Link } from "react-router";
 
 function ProfileView() {
   const { user } = useUser();
@@ -26,15 +27,21 @@ function ProfileView() {
               {user.zone}, {user.neighborhood}
             </p>
           </div>
+          <Link to={`/user/${user._id}/newpet`} className='btn-add-pet' >+</Link>  
+          <p>Agregar Mascota
+          </p>
         </div>
       </div>
 
       {/* Sección de mascotas */}
       <div className="pets-section">
+  
         <h2 className="pets-title">Mascotas</h2>
+    
         <Pets id={user._id} />
       </div>
-    </div>
+   
+        </div>
   );
 }
 

@@ -40,7 +40,7 @@ export default function OwnerRegisterViews() {
         <>
             {currentForm === 1 && <Form1 user={user} nextForm={nextForm} />}
             {currentForm === 2 && <Form2  prevForm={prevForm} nextForm={nextForm} />}
-            {currentForm === 3 && <Form3 id={id} nextForm={nextForm} />}
+            {currentForm === 3 && <Form3  nextForm={nextForm} />}
             {currentForm === 4 && <RegisterCongratulations />}
         </>
     )

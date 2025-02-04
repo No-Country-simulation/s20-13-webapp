@@ -10,6 +10,7 @@ import SearchResults from './views/SearchResults'
 import CaretakerRegisterViews from './views/CaretakerRegisterViews'
 import ProfileView from './views/ProfileView'
 import UserLayout from './layout/UserLayout'
+import NewPet from './components/ui/NewPet'
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
           <Route path="/profile" element={<ProfileView/>} />
           <Route path={"/caretaker/:id"} element={<CaretakerProfile />} />
           <Route path="/results" element={<SearchResults />} />
+          <Route path="/user/:id/newpet" element={<NewPet />} />
         </Route>
 
       </Routes>

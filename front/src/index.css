@@ -5,7 +5,7 @@
   --font-jua: "Jua", serif;
 }
 
-.inter{
+.inter {
   font-family: "Inter", serif;
   font-optical-sizing: auto;
   font-weight: 300;
@@ -37,9 +37,10 @@
 
 /*/////////footer////////*/
 
-.footer{
+.footer {
   width: 100vw;
 }
+
 .textofoot {
 
   font-size: 20px;
@@ -514,18 +515,26 @@ border: solid;
 }
 
 /* -------------------------------------------------Search results------------------------------------ */
-.search-results-container{
+.search-results-container {
   padding: 0 50px;
 }
-.search-results-container > h2 {
+
+@media screen and (max-width:768px) {
+  .search-results-container {
+    padding: 0px;
+  }
+}
+
+.search-results-container>h2 {
   font-family: var(--font-jua);
   font-size: 30px;
   display: inline;
-  margin-right: 20px;  
+  margin-right: 20px;
 
 
 }
-.search-results-container > p{
+
+.search-results-container>p {
   display: inline;
 }
 
@@ -1196,6 +1205,7 @@ padding: 0;
   background-position: center;
   background-repeat: no-repeat
 }
+
 /* OWNER PROFILE   */
 
 
@@ -1306,23 +1316,85 @@ padding: 0;
 }
 
 /* PET CARDS*/
+.btn-add-pet{
+  background-color: #eaecee;
+  text-align: center;
+  text-decoration: none;
+  width: 100px;
+  height: 100px;
+  border: none;
+  font-size: 80px;
+  border-radius: 50%;
+  color: #6980b1;
+  cursor: pointer;
 
-.pet-h1{
-  color:#6980b1;
-  font-weight: 600;
-  font-size:50px;
+}
+.section-pets {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pet-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-width: 400px;
+  min-height: 400px;
 }
 
 .pet-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   padding: 20px;
-  width: 50%;
-  background-color:#eaecee ;
+  width: 100%;
+  max-width: 400px;
+  min-height: 400px;
+  background-color: #eaecee;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  gap: 15px;
 }
+
+.pet-image {
+  width: 120px;
+  border-radius: 20px;
+}
+
+.pet-name {
+  font-family: var(--font-jua);
+  color: #6980b1;
+}
+
+.pet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pet-about {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-red-pet {
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: red;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+
 /* CARETAKER PROFILE */
 
 .profile-container {
@@ -1335,6 +1407,7 @@ padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   padding: 20px;
   width: 50%;
   background-color: #f9f9f9;
@@ -1354,7 +1427,7 @@ padding: 0;
   .profile-card {
     width: 100%;
     margin-bottom: 20px;
-    
+
 
   }
 
@@ -1362,42 +1435,42 @@ padding: 0;
 
 
 /* ------------------------caretakersCards------------------------ */
-
-.caretaker-card{
-  width: 280px;  
-  background-color:rgba(191, 191, 191, 0.22);
+.caretaker-card {
+  width: 280px;
+  background-color: rgba(191, 191, 191, 0.22);
   padding: 15px;
   border-radius: 15px;
-display: flex;
-flex-direction: column;
-justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
 }
-.caretaker-card p{
+
+.caretaker-card p {
   margin: 5px 0;
   font-size: 14px;
-  
-
 }
-.caretaker-card-info{
 
-width: 250px;
+.caretaker-card-info {
+
+  width: 250px;
   height: 250px;
 
-position: relative;
+  position: relative;
 
 }
-.caretaker-card-info img{
+
+.caretaker-card-info img {
   width: 100%;
   max-height: 250px;
-  
+
   border-radius: 15px;
   position: relative;
 }
+
 .caretaker-card-info-text {
   position: absolute;
   color: #fff;
-
   bottom: 10px;
   left: 5px;
   z-index: 400;
@@ -1405,43 +1478,48 @@ position: relative;
   font-weight: 100;
 
 }
-.caretaker-card-info-text p {
-padding: 0;
-margin: 0;
-display: flex;
 
+.caretaker-card-info-text p {
+  padding: 0;
+  margin: 0;
+  display: flex;
 
 }
+
 .caretaker-card-info-text svg {
- font-size: 20px;
+  font-size: 20px;
 
-  }
+}
 
 
-.caretaker-card-service{
+.caretaker-card-service {
   font-size: 16px;
 
 }
-.caretaker-card-description{
+
+.caretaker-card-description {
   font-weight: 200;
 }
-.caretaker-card-cost{
+
+.caretaker-card-cost {
   text-align: end;
   font-weight: 200;
-  
-  
+
+
 
 }
-.caretaker-card-cost span{
+
+.caretaker-card-cost span {
   background-color: #fff;
   padding: 5px;
   border-radius: 25px;
   color: rgba(105, 128, 177, 1);
   font-weight: 700;
-  
+
 
 }
-.caretaker-card-btn{
+
+.caretaker-card-btn {
   margin-top: 15px;
   border-radius: 15px;
   text-decoration: none;
@@ -1452,8 +1530,9 @@ display: flex;
   align-self: center;
   font-family: var(--font-jua);
   font-size: 16px;
+  position: relative;
+  z-index: 500;
 }
-
 
 /* styles for caretakersCard in SearchResultsView */
 
@@ -1465,8 +1544,8 @@ display: flex;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
-  
-justify-content: flex-start;
+
+  justify-content: flex-start;
   position: relative;
 }
 
@@ -1564,7 +1643,7 @@ justify-content: flex-start;
   font-weight: bold;
   white-space: nowrap;
   color: orange;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 .picture-profile {
@@ -1585,7 +1664,7 @@ justify-content: flex-start;
   margin-bottom: 20px;
 }
 
-.schedule-title{
+.schedule-title {
   text-align: center;
 }
 

@@ -15,7 +15,8 @@ export default function ServiceForm({ id, nextForm }) {
     const [data, setData] = useState({
         service: "",
         isActive: "",
-        cost: ""
+        cost: "",
+        petType:""
     });
 
     const handleChange = (e) => {
@@ -44,11 +45,11 @@ export default function ServiceForm({ id, nextForm }) {
         let newErrors = {};
 
         if (!data.service) newErrors.service = "El servicio es obligatorio.";
+        if (!data.petType) newErrors.petType= "El tipo de mascota es obligatorio.";
         if (!data.isActive) newErrors.isActive = "Selecciona si el servicio está disponible.";
         if (!days.length) newErrors.availability = "Selecciona al menos un día.";
         if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
         if (costPerHour <= 0) newErrors.costPerHour = "El costo es inválido";
-
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
             return;
@@ -94,6 +95,18 @@ export default function ServiceForm({ id, nextForm }) {
                         </select>
                         {errors.service && <ErrorMessage>{errors.service}</ErrorMessage>}
                     </div>
+                    {
+                        service === "caretaker" &&
+                         <div className="form-group">
+                        <label htmlFor="service">Tipo de mascota:</label>
+                        <select id="petType" name="petType" onChange={handleChange}>
+                            <option value="">-- Selecciona una opción --</option>
+                            <option value="dog">Perro</option>
+                            <option value="cat">Gato</option>
+                        </select>
+                        {errors.petType && <ErrorMessage>{errors.petType}</ErrorMessage>}
+                    </div>
+                    }
 
                     <div className="form-group">
                         <label htmlFor="isActive">Disponibilidad del servicio</label>

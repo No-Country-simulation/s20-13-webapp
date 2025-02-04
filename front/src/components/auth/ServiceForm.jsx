@@ -16,7 +16,6 @@ export default function ServiceForm({ id, nextForm }) {
         service: "",
         isActive: "",
         cost: "",
-        petType:""
     });
 
     const handleChange = (e) => {
@@ -45,7 +44,7 @@ export default function ServiceForm({ id, nextForm }) {
         let newErrors = {};
 
         if (!data.service) newErrors.service = "El servicio es obligatorio.";
-        if (!data.petType) newErrors.petType= "El tipo de mascota es obligatorio.";
+        if (data.service === "caretaker" && !data.petType) newErrors.petType= "El tipo de mascota es obligatorio.";
         if (!data.isActive) newErrors.isActive = "Selecciona si el servicio está disponible.";
         if (!days.length) newErrors.availability = "Selecciona al menos un día.";
         if (!costPerHour) newErrors.costPerHour = "El costo por hora es obligatorio.";
@@ -63,7 +62,7 @@ export default function ServiceForm({ id, nextForm }) {
             ...days
         ]
         setData(updatedData);
-
+        console.log(updatedData)
         try {
             const request = await api.put(`/users/${id}`, updatedData );
              const result = await api.post(`/caretaker/${id}/availability`,{availability:availabilityList});
@@ -74,7 +73,7 @@ export default function ServiceForm({ id, nextForm }) {
             
         } catch (error) {
             if (isAxiosError(error) && error.response) {
-                throw new Error(error.response.data.error);
+                console.log(error.response.data);
             }
         }
     };

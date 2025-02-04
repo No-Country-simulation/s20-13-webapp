@@ -113,8 +113,6 @@ export default function NewPet() {
     return (
         <main className="formuaaa">
             <div className="form-container">
-
-
                 <form className="form" onSubmit={handleFormData}>
                     <h2>Información sobre Mascotas</h2>
 

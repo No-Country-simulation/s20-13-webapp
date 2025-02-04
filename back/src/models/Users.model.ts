@@ -10,10 +10,6 @@ export enum  UserService {
   DOGWALKER = "dogwalker"
 }
 
-interface Cost {
-  hour: number
-  day: number
-}
 
 export enum PetType{
   DOG="dog",
@@ -33,7 +29,7 @@ export interface IUser extends Document {
   phone?: [string];
   certificate?: [string]; // certificados de cuidador
   petType:PetType
-  cost: Cost
+  cost: number
   role?: UserRole;
   isActive?: boolean;
   service?: UserService
@@ -108,15 +104,10 @@ const userSchema: Schema = new Schema<IUser>(
       default:null
     },
     cost: {
-      hour: {
-        type: Number,
-        default: null
-      },
-      day: {
         type: Number,
         default: null
       }
-    },
+    ,
     isActive: {
       type: Boolean,
       default: false,
@@ -165,7 +156,7 @@ userSchema.pre("save", function (next) {
     address: "",
     zone:"",
     service:null,
-    cost:{},
+    cost:null,
     phone: [],
     certificate: [],
     petType:null,

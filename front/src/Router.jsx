@@ -10,7 +10,7 @@ import SearchResults from './views/SearchResults'
 import CaretakerRegisterViews from './views/CaretakerRegisterViews'
 import ProfileView from './views/ProfileView'
 import UserLayout from './layout/UserLayout'
-import NewPet from './components/ui/newPet'
+import NewPet from './components/ui/NewPet'
 
 export default function Router() {
   return (

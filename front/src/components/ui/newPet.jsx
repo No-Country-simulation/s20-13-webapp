@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import api from "../../lib/axios"
-import ErrorMessage from "../ui/ErrorMessage"
+import ErrorMessage from "./ErrorMessage"
 import { useNavigate, useParams } from "react-router";
 
 const petOptions = [
@@ -113,8 +113,6 @@ export default function NewPet() {
     return (
         <main className="formuaaa">
             <div className="form-container">
-
-
                 <form className="form" onSubmit={handleFormData}>
                     <h2>Información sobre Mascotas</h2>
 

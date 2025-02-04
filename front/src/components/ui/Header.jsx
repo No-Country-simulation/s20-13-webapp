@@ -50,8 +50,7 @@ const Header = ({ user, handleLogout }) => {
                 <Link to={"/auth"}>Iniciar Sesión</Link>
                 <Link to={"/"}>Home</Link>
                 <Link to={"/about"}>About</Link>
-                <Link to={"/auth"}>Services</Link>
-                <Link to={"/auth"}>Contact</Link>
+
               </>
 
             </div>

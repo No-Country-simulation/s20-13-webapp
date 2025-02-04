@@ -47,10 +47,10 @@ const Header = ({ user, handleLogout }) => {
             <button className="hamburger" onClick={handleMenu}>&#9776;</button>
             <div className={`menu ${isMenuOpen ? 'active' : ''}`}>
               <>
-                <Link to={"/auth"}>Iniciar Sesión</Link>
                 <Link to={"/"}>Home</Link>
                 <Link to={"/about"}>About</Link>
-
+                <Link to={"/auth"}>Iniciar Sesión</Link>
+                
               </>
 
             </div>

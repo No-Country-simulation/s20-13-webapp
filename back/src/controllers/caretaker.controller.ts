@@ -146,17 +146,20 @@ export class CaretakerController {
 
   // Filtrado de cuidadores
   public filterCaretakersController = async (req: Request, res: Response): Promise<any> => {
-    const { zone, service } = req.query;
+    const { zone, service, petType } = req.query;
+    
+    console.log("Filtros recibidos:", { zone, service, petType });
   
-    console.log("Filtros recibidos:", { zone, service });
+    // Eliminar filtros vacíos antes de pasarlos al servicio
+    const filters: { zone?: string; service?: string; petType?: string } = {};
+    if (zone) filters.zone = String(zone);
+    if (service) filters.service = String(service);
+    if (petType) filters.petType = String(petType);
   
     try {
-      const caretakers = await this.caretakerService.filterCaretakers(
-        String(zone || ""),
-        String(service || "")
-      );
+      const caretakers = await this.caretakerService.filterCaretakers(filters.zone, filters.service, filters.petType);
   
-      if (caretakers.length === 0) {
+      if (!caretakers.length) {
         return res.status(404).json({
           success: false,
           message: "Cuidadores no encontrados",
@@ -177,6 +180,7 @@ export class CaretakerController {
       });
     }
   };
+  
   
 
 }

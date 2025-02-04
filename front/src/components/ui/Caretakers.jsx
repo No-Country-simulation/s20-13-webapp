@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CaretakerCardSkeleton from './SkeletonCard';
 import CaretakerCard from './CaretakerCard';
 import getCaretakers from "../../api/apiCaretakers";
+import { useLocation } from "react-router-dom";
 
 export default function Caretakers({ filters = {}, updateCaretakersCount, cardClassName }) {
   const [caretakers, setCaretakers] = useState([]);
   const [filteredCaretakers, setFilteredCaretakers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  const location = useLocation();
 
   const fetchCaretakers = async (filterParams = {}) => {
     setIsLoading(true);
@@ -20,10 +23,10 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
         setCaretakers(response.data);
         applyLocalFilters(response.data);
         if (updateCaretakersCount) {
-          updateCaretakersCount(response.data.length); 
+          updateCaretakersCount(response.data.length);
         }
       } else {
-        setCaretakers([]);ç
+        setCaretakers([]);
         setFilteredCaretakers([]);
         setErrorMessage('No se encontraron cuidadores que cumplan con los criterios de búsqueda.');
       }
@@ -44,23 +47,26 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
 
   const applyLocalFilters = (caretakersData) => {
     let filtered = caretakersData;
-
-    if (filters.pets) {
-      filtered = filtered.filter(caretaker => caretaker.pets.includes(filters.pets));
+  
+    if (filters.petType) {
+      filtered = filtered.filter(caretaker => {
+      
+        return caretaker.petType && caretaker.petType.includes(filters.petType);
+      });
     }
-
+  
     if (filters.neighborhood) {
       filtered = filtered.filter(caretaker => caretaker.neighborhood === filters.neighborhood);
     }
-
+  
     if (filters.reviews) {
       filtered = filtered.filter(caretaker => caretaker.reviews >= filters.reviews);
     }
-
+  
     if (filters.maxPrice) {
       filtered = filtered.filter(caretaker => caretaker.cost <= filters.maxPrice);
     }
-
+  
     if (filters.order) {
       filtered = filtered.sort((a, b) => {
         if (filters.order === "Menor precio") return a.cost - b.cost;
@@ -68,18 +74,20 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
         return 0;
       });
     }
-
+  
     setFilteredCaretakers(filtered);
     if (updateCaretakersCount) {
       updateCaretakersCount(filtered.length);
     }
   };
+  
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const service = queryParams.get("service");
     const zone = queryParams.get("zone");
-    fetchCaretakers({ service, zone });
+    const petType = queryParams.get("petType");
+    fetchCaretakers({ service, zone, petType });
   }, [location.search]);
 
   useEffect(() => {

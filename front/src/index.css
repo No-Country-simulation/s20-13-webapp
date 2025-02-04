@@ -39,6 +39,7 @@
 
 .footer {
   width: 100vw;
+  
 }
 
 .textofoot {
@@ -154,26 +155,6 @@ border: solid;
 }*/
 
 
-/*//mapa////*/
-.mapita {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  gap: 50px;
-}
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .mapita {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-
-  }
-
-}
 
 /*///menu responsivo////*/
 /* Navigation bar styling */
@@ -244,14 +225,29 @@ border: solid;
 }
 
 .menu a {
-  color: orange;
-  font-weight: bold;
+  color: rgba(217, 159, 51, 1);
+  /* font-weight: bold; */
   text-decoration: none;
   margin-right: 15px;
-  border: solid;
-  border-radius: 10px;
+  border: solid 2px;
+  border-radius: 20px;
   padding: 8px 12px;
 }
+.menu a:hover{
+
+  opacity: .8;
+
+}
+
+
+.menu a:last-child {
+
+  background-color: rgba(217, 159, 51, 1);
+  color: #fff;
+  border: solid 2px rgba(217, 159, 51, 1);
+
+}
+
 
 .usermenu {
 
@@ -389,7 +385,7 @@ border: solid;
   width: 80px;
   padding: 15px 15px;
   font-size: 16px;
-  background-color: #f39c12;
+  background-color:rgba(217, 159, 51, 1);
   color: white;
   border: none;
   border-radius: 25px;
@@ -911,7 +907,74 @@ padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/*///about//*/
+/*------------------------------------------------about------------------------------------------------*/
+
+.about {
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 0px 10px;
+  max-width: 1000px; /* Ajusta el tamaño máximo del contenedor */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra los elementos hijos horizontalmente */
+  min-height: 65vh;
+  font-family: var(--font-jua);
+}
+
+
+.about-container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+.about-container-img img{
+  min-height: 300px;
+  
+}
+.about-container-txt{
+  margin-bottom: 20px;
+}
+.about-container-txt p{
+  /* font-family: var(--font-jua); */
+  font-weight: 200;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.about-container-txt p span{
+  font-weight: 400;
+}
+
+.about-container-txt h2{
+  color: rgba(95, 115, 159, 1);
+  font-family: var(--font-inter);
+  font-size: 30px;
+  margin: 0 0 10px 0;
+  text-align: center;
+
+
+
+}
+.about-container-txt h3{
+  color: rgba(105, 128, 177, 1);
+  
+}
+
+
+@media screen and (max-width: 900px) {
+  .about-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  
+  }
+  
+
+
+}
+
+
 
 .asi1 {
   text-align: center;
@@ -928,7 +991,7 @@ padding: 0;
   margin: 10px auto;
 }
 
-.contenedorimagenytexto {
+.imagenytexto {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -1480,7 +1543,9 @@ padding: 0;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-around;
+  position: relative;
 
 }
 
@@ -1503,7 +1568,7 @@ padding: 0;
   max-height: 250px;
 
   border-radius: 15px;
-  position: relative;
+  /* position: relative; */
 }
 
 .caretaker-card-info-text {
@@ -1569,10 +1634,11 @@ padding: 0;
   font-family: var(--font-jua);
   font-size: 16px;
   position: relative;
+  /* position: absolute; */
   z-index: 500;
 }
 
-/* styles for caretakersCard in SearchResultsView */
+/*--------------------- styles for caretakersCard in SearchResultsView--------------------- */
 
 
 .caretaker-card-search {

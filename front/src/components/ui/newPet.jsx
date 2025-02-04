@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import api from "../../lib/axios"
-import ErrorMessage from "../ui/ErrorMessage"
+import ErrorMessage from "./ErrorMessage"
 import { useNavigate, useParams } from "react-router";
 
 const petOptions = [

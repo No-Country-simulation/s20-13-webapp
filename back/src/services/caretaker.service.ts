@@ -78,18 +78,19 @@ export class CaretakerService {
   }
 
   // Método para filtrar cuidadores
-  public async filterCaretakers(zone?: string, service?: string): Promise<IUser[]> {
+  public async filterCaretakers(zone?: string, service?: string, petType?: string): Promise<IUser[]> {
     const query: any = { role: UserRole.CARETAKER };
   
     if (zone) query.zone = { $regex: new RegExp(zone, "i") };
     if (service) query.service = { $regex: new RegExp(service, "i") };
+    if (petType) query.petType = { $regex: new RegExp(petType, "i") };
   
     console.log("Consulta de cuidadores:", query);
   
     try {
       const caretakers = await User.find(query);
   
-      if (caretakers.length === 0) {
+      if (!caretakers.length) {
         console.warn("No se encontraron cuidadores que cumplan los criterios");
       }
   

@@ -3,26 +3,37 @@ import { zones } from "../../data/zones";
 
 export default function SearchFilter({ updateFilters, selectedProvince }) {
   const [filters, setFilters] = useState({
-    pets: "",
+    petType: "",
     neighborhood: "",
     reviews: "",
     maxPrice: "",
     order: "",
   });
 
+  const petTypeMapping = {
+    "Perro": "dog",
+    "Gato": "cat",
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
     setFilters((prevFilters) => {
       const updatedFilters = {
         ...prevFilters,
         [name]: value,
       };
-      updateFilters(updatedFilters);
+
+      
+      if (name === "petType") {
+        updatedFilters[name] = petTypeMapping[value] || ""; 
+      }
+
+      updateFilters(updatedFilters);  
       return updatedFilters;
     });
   };
 
- 
   useEffect(() => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -31,7 +42,6 @@ export default function SearchFilter({ updateFilters, selectedProvince }) {
     }));
   }, [selectedProvince]);
 
- 
   const selectedZone = zones.find(zone => zone.province === selectedProvince);
   const neighborhoods = selectedZone ? selectedZone.neighborhoods : [];
 
@@ -40,7 +50,7 @@ export default function SearchFilter({ updateFilters, selectedProvince }) {
       <p>Filtrar por:</p>
       <div className="search-filter">
         {/* Tipo de mascota */}
-        <select name="pets" value={filters.pets} onChange={handleChange}>
+        <select name="petType" value={filters.petType} onChange={handleChange}>
           <option value="">Tipo de mascota</option>
           <option value="Perro">Perro</option>
           <option value="Gato">Gato</option>

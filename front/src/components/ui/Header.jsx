@@ -4,6 +4,13 @@ import { useState } from 'react';
 import Logo from './Logo';
 import { CiLogout } from "react-icons/ci";
 
+
+
+const roleTranslation = {
+  owner: "dueño",
+  caretaker: "cuidador",
+};
+
 const Header = ({ user, handleLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -24,6 +31,7 @@ const Header = ({ user, handleLogout }) => {
 
         {
           user && <>
+          <h2 className='header-title'>Registrado como {roleTranslation[user.role]}</h2>
             <img
               className='profile-picture'
               onClick={handleMenu}
@@ -34,7 +42,6 @@ const Header = ({ user, handleLogout }) => {
 
               <Link to={"/profile"}>Ver Perfil</Link>
               <button className='menu-btn' onClick={handleLogout}>Cerrar Sesión  <CiLogout/></button>
-             
             </div>
 
           </>

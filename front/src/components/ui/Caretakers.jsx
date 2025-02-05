@@ -9,7 +9,7 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
   const [filteredCaretakers, setFilteredCaretakers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const location = useLocation();
 
   const fetchCaretakers = async (filterParams = {}) => {
@@ -47,26 +47,23 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
 
   const applyLocalFilters = (caretakersData) => {
     let filtered = caretakersData;
-  
+
     if (filters.petType) {
-      filtered = filtered.filter(caretaker => {
-      
-        return caretaker.petType && caretaker.petType.includes(filters.petType);
-      });
+      filtered = filtered.filter(caretaker => caretaker.petType && caretaker.petType.includes(filters.petType));
     }
-  
+
     if (filters.neighborhood) {
       filtered = filtered.filter(caretaker => caretaker.neighborhood === filters.neighborhood);
     }
-  
+
     if (filters.reviews) {
       filtered = filtered.filter(caretaker => caretaker.reviews >= filters.reviews);
     }
-  
+
     if (filters.maxPrice) {
       filtered = filtered.filter(caretaker => caretaker.cost <= filters.maxPrice);
     }
-  
+
     if (filters.order) {
       filtered = filtered.sort((a, b) => {
         if (filters.order === "Menor precio") return a.cost - b.cost;
@@ -74,13 +71,12 @@ export default function Caretakers({ filters = {}, updateCaretakersCount, cardCl
         return 0;
       });
     }
-  
+
     setFilteredCaretakers(filtered);
     if (updateCaretakersCount) {
       updateCaretakersCount(filtered.length);
     }
   };
-  
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);

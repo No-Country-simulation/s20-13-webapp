@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { dictionaryService } from "../../utils/helpers";
 import { LuMapPin } from "react-icons/lu";
+import PawIcon from "./PawIcon"
 
 function CaretakerCard({ caretaker, className = "" }) {
   const { user } = useUser();
@@ -27,6 +28,7 @@ function CaretakerCard({ caretaker, className = "" }) {
       </div>
       <div className="caretaker-card-text">
         <div className="caretaker-reviews">
+          <PawIcon/>
           <a className="caretaker-reviews-link" href="#">
             <p>
               (Reseñas <span id="review-count-summary-1">{caretaker?.reviews?.length }</span>)

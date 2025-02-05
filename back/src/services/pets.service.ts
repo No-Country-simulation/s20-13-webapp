@@ -5,14 +5,11 @@ import { User } from "../models/Users.model";
 export class PetsService {
 
 
-    public async getAllPetsByUser(userId: string): Promise<IPets[]> {
-
-
+    public async findPetsByUser(userId: string): Promise<IPets[]> {
         try {
-            const pets = await Pets.find({ user: userId })
+            const pets = await Pets.find({ user: userId });
             if (pets.length === 0) {
                 throw new Error("No se encontró ninguna mascota");
-
             }
             return pets;
         } catch (error) {
@@ -20,7 +17,6 @@ export class PetsService {
             throw new Error("Hubo un error al buscar las mascotas");
         }
     }
-
 
 
 

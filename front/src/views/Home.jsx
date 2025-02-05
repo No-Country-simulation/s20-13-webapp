@@ -1,9 +1,6 @@
-
-
 import SearchBar from "../components/ui/SearchBar";
-import CaretakerReviewCard from "../components/ui/CaretakerCardReview";
 import Caretakers from "../components/ui/Caretakers";
-import CaretakerCardReview from "../components/ui/CaretakerCardReview";
+
 export default function Home() {
 
 
@@ -15,28 +12,16 @@ export default function Home() {
 
         <Caretakers />
        
-
-
-
-        <h1 className="titulo">¿Qué dicen nuestros clientes?</h1>
-{/* 
-        <div className="positioncards">
-          <div className="container mt-5 mt-55">
-             <CaretakerCardReview />
-
-          </div>
-        </div> */}
-
         <h1 className="titulo">¿Qué dicen las mascotas?</h1>
         <div className="ftmascotas">
           <div>
-            <img className="cardh" src="pets.jpg" alt="" />
+            <img className="cardh" src="/pets.jpg" alt="" />
           </div>
           <div>
-            <img className="cardh" src="pets.jpg" alt="" />
+            <img className="cardh" src="/perrosfelices.jpg" alt="" />
           </div>
           <div>
-            <img className="cardh" src="pets.jpg" alt="" />
+            <img className="cardh" src="/gatos.jpg" alt="" />
           </div>
         </div>
       </main>

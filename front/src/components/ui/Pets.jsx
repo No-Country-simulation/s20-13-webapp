@@ -5,32 +5,35 @@ import Pet from './Pet';
 
 export default function Pets({ id }) {
     const [pets, setPets] = useState([])
-    const [refetch,setRefetch]= useState(false)
+    const [refetch, setRefetch] = useState(false)
     useEffect(() => {
         const fetchPets = async () => {
             try {
                 const { data } = await api(`/pets/user/${id}`);
-                setPets(data)
+                  
+              setPets(data)
+
             } catch (error) {
                 if (isAxiosError(error) && error.response) {
                     console.log(error.response.data);
+                    setPets([])
                 }
             }
         };
         fetchPets();
-    }, [id,refetch]);
+    }, [id, refetch]);
 
 
 
 
-    const onDelete=async(petId)=>{
+    const onDelete = async (petId) => {
 
         try {
-            const {request}=await api.delete(`/pets/delete/${petId}`)
+            const { request } = await api.delete(`/pets/delete/${petId}`)
             console.log(request)
-            setRefetch(!refetch)
+            setRefetch(prev => !prev);
         } catch (error) {
-            if(isAxiosError(error) && error.response){
+            if (isAxiosError(error) && error.response) {
                 console.log(error.response.data)
             }
         }
@@ -39,12 +42,12 @@ export default function Pets({ id }) {
 
     return (
         <div className='section-pets'>
-                {
-                    pets ? pets.map(pet => (
-                        <Pet onDelete={onDelete} pet={pet} key={pet._id} />
+            {
+                pets.length > 0 ? pets.map(pet => (
+                    <Pet onDelete={onDelete} pet={pet} key={pet._id} />
 
-                    )) : <p>No se encontraron mascotas</p>
-                }
+                )) : <p>No se encontraron mascotas</p>
+            }
         </div>
     )
 }

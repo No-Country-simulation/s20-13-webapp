@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { PetsService } from "../services/pets.service";
-import { User } from "../models/Users.model";
 import cloudinary from "../config/cloudinary";
 import path from "path";
 export class PetsController {
@@ -19,12 +18,12 @@ export class PetsController {
     const userId = req.params.userId;
 
     try {
-      const pets = await this.petsService.getAllPetsByUser(userId);
-      res.status(200).json(pets);
+        const pets = await this.petsService.findPetsByUser(userId);
+        res.status(200).json(pets);
     } catch (error: any) {
-      res.status(404).json({ error: error.message });
+        res.status(404).json({ error: error.message });
     }
-  }
+}
 
   public async getPet(req: Request, res: Response): Promise<void> {
     const { id } = req.params;

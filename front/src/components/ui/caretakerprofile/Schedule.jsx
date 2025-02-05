@@ -1,5 +1,5 @@
 import React from 'react'
-import { dictionary } from '../../utils/helpers'
+import { dictionary } from '../../../utils/helpers'
 
 export default function Schedule({ availability }) {
 

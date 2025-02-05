@@ -29,7 +29,7 @@ function CaretakerCard({ caretaker, className = "" }) {
         <div className="caretaker-reviews">
           <a className="caretaker-reviews-link" href="#">
             <p>
-              (Reseñas <span id="review-count-summary-1">0</span>)
+              (Reseñas <span id="review-count-summary-1">{caretaker?.reviews?.length }</span>)
             </p>
           </a>
         </div>

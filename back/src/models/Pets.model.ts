@@ -62,4 +62,18 @@ const petsSchema = new Schema<IPets>(
   }
 );
 
+petsSchema.pre("findOneAndDelete", async function (next) {
+
+  const pet = await this.model.findOne(this.getFilter());
+  
+  if (pet) {
+    await model("User").updateOne(
+      { pets: pet._id },
+      { $pull: { pets: pet._id } }
+    );
+  }
+  next();
+
+});
+
 export const Pets = model<IPets>("Pets", petsSchema);

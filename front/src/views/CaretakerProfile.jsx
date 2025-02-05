@@ -1,10 +1,11 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import Schedule from "../components/ui/Schedule";
-import { dictionaryService } from "../utils/helpers";
-import ContactCard from "../components/ui/ContactCard";
 import { isAxiosError } from "axios";
-import api from "../lib/axios"; 
+import CaretakerProfileInfo from "../components/ui/caretakerprofile/ProfileInfo";
+import Schedule from "../components/ui/caretakerprofile/Schedule";
+import ContactCard from "../components/ui/caretakerprofile/ContactCard";
+import api from "../lib/axios";
+import CaretakerCardReview from "../components/ui/CaretakerCardReview";
 
 function CaretakerProfile() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function CaretakerProfile() {
         setCaretaker(data.data);
       } catch (error) {
         if (isAxiosError(error) && error.response) {
-          console.log(error.response.data.message);
+          console.log(error.response.data);
         }
       }
     };
@@ -27,29 +28,18 @@ function CaretakerProfile() {
   if (!caretaker) return <p>Cargando...</p>;
 
   return (
-    <div className="profile-container">
+   <> <div className="profile-container">
       <div className="profile-card">
-        <h1 className="profile-h1">Perfil del cuidador</h1>
-        <img
-          className="picture-profile"
-          src={caretaker.profilePicture}
-          alt="Imagen de cuidador"
-        />
-        <h2>
-          {caretaker.name} {caretaker.lastName}
-        </h2>
-        
-          <p className="p-service">{dictionaryService[caretaker.service]}</p>
-          <p>{caretaker.about}</p>
-          <p>Tarifa por hora: ${caretaker.cost}</p>
-          <p>
-            {caretaker.zone}, {caretaker.neighborhood}
-          </p>
-      
+      <h1 className="profile-h1">Perfil del cuidador</h1>
+       
+      <CaretakerProfileInfo caretaker={caretaker}/>
         <Schedule availability={caretaker.availability} />
       </div>
       <ContactCard caretaker={caretaker} />
+    
     </div>
+      <CaretakerCardReview id={id}/>
+      </>
   );
 }
 

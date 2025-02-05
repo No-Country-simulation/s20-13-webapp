@@ -5,7 +5,6 @@ import { isAxiosError } from "axios";
 const CaretakerCardReview = ({ id }) => {
 
 
-
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
@@ -20,7 +19,7 @@ const CaretakerCardReview = ({ id }) => {
         setCaretaker(request.data)
       } catch (error) {
         if (isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.error)
+          console.log(error.response.data.error)
         }
       }
     }
@@ -36,7 +35,7 @@ const CaretakerCardReview = ({ id }) => {
 
       } catch (error) {
         if (isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.error)
+          console.log(error.response.data.error)
         }
       }
     }

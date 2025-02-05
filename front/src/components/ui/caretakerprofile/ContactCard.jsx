@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { isAxiosError } from "axios";
-import { FaWhatsapp, FaEnvelope } from "react-icons/fa";
-import api from "../../lib/axios";
-import ErrorMessage from "./ErrorMessage";
+import { FaWhatsapp, FaEnvelope, FaLess } from "react-icons/fa";
+import api from "../../../lib/axios";
+import ErrorMessage from "../ErrorMessage";
 
 export default function ContactCard({ caretaker }) {
   const [data, setData] = useState({
@@ -31,10 +31,12 @@ export default function ContactCard({ caretaker }) {
         `/caretaker/${caretaker._id}/mailing`,
         data
       );
+
+      console.log(responseData)
       
-      if (responseData === 200) {
+      if (responseData ==="Correo enviado con éxito") {
         setError("");
-        setSuccess(responseData.response);
+        setSuccess(responseData);
 
         setData({ subject: "", text: "" });
       }
@@ -94,12 +96,14 @@ export default function ContactCard({ caretaker }) {
           rows={5}
           value={data.text}
         />
+       {
+        success ? <p className="success-message">{success}</p> :
         <button type="submit" className="contact-button email">
           Enviar Consulta
         </button>
+       } 
       </form>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {success && <p className="success-message">{success}</p>}
     </div>
   );
 }

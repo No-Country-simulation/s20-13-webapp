@@ -35,6 +35,19 @@
 
 
 
+
+/* ------------------------------Header------------------------------ */
+
+.header-title{
+  font-family: var(--font-inter);
+  font-size: 20px;
+  color: #6980b1;
+  font-weight: 500;
+position: absolute;
+right: 150px;
+}
+
+
 /*/////////footer////////*/
 
 .footer {

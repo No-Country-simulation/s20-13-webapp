@@ -486,6 +486,7 @@ border: solid;
 
 .search-filter:nth-last-child() {
   background-color: #e0e0e0;
+  font-family: var(--font-jua);
 }
 
 
@@ -507,7 +508,7 @@ border: solid;
 
 .search-filter select option {
 
-  background-color: #fff;
+  background-color: #e8e8e8;
 
 }
 
@@ -515,7 +516,18 @@ border: solid;
   background-color: #e8e8e8;
   position: absolute;
   right: 0;
+  font-family: var(--font-jua);
 }
+.search-filter .order-filter option{
+  font-family: var(--font-jua);
+  background-color: #e8e8e8;
+ 
+
+
+ 
+}
+
+
 
 /* -------------------------------------------------Search results------------------------------------ */
 .search-results-container {

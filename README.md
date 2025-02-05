@@ -47,14 +47,39 @@ Estructura MVC (modular)
 
 ### **Equipo y Roles **  
 
-|         Nombre        |    Rol    |
-|:---------------------:|:---------:|
-|     Federico Crer     | Front End |
-|      Ailén Franco     |  Back End |
-|     Tomás Ballesty    |  Back End |
-|      Marcos Soria     |  Back End |
-| María Agustina Cuello |   UX/UI   |
-|    Florencia Viale    |     QA    |
+<table align="center">
+  <tr>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/187040272?v=4" width="100"></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/167582913?v=4" width="100"></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/83506872?v=4" width="100"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Florencia Viale</strong></td>
+    <td align="center"><strong>Federico Crer.</strong></td>
+    <td align="center"><strong>María C.</strong></td>
+  </tr>
+  <tr>
+    <td align="center">QA</td>
+    <td align="center">Front-End</td>
+    <td align="center">UX/UI</td>
+
+  </tr>
+  <tr>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/93718475?v=4" width="100"></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/114162800?v=4" width="100"></td>
+    <td align="center"><img src="https://avatars.githubusercontent.com/u/96923894?v=4" width="100"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Ailén Franco</strong></td>
+    <td align="center"><strong>Tomás Ballesty</strong></td>
+    <td align="center"><strong> Marcos Soria </strong></td>
+  </tr>
+  <tr>
+    <td align="center">Back-End</td>
+    <td align="center">Back-End</td>
+    <td align="center">Back-End</td>
+  </tr>
+</table>
 
 ## 📬 **Tecnología para Reuniones y Comunicación**  
 ---  

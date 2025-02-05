@@ -45,7 +45,7 @@ Integración con Mercado Pago para que tu dinero esté siempre seguro.
 
 Estructura MVC (modular)
 
-### **Equipo y Roles **  
+### **Equipo y Roles**  
 
 <table align="center">
   <tr>

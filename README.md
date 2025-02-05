@@ -1,5 +1,9 @@
 # 🖥️ s20-13-webapp
 
+![image](https://github.com/user-attachments/assets/ba2c9dc4-db14-4aa8-a5dc-7137f188876f)
+
+
+
 # 🐾🐾 WEB APP – PAWPET  🐾🐾
 
 Presentamos **PawPet**🐾, la plataforma diseñada para conectar a cuidadores de mascotas con dueños que necesitan servicios de cuidado temporal. Este proyecto tiene como objetivo facilitar la búsqueda y contratación de cuidadores confiables, promoviendo el bienestar de las mascotas y la tranquilidad para sus dueños, así como un medio seguro para potenciales cuidadores para promover su trabajo. 
@@ -41,7 +45,6 @@ Integración con Mercado Pago para que tu dinero esté siempre seguro.
 - 🟣 **Express con TS**
 - 🟠 **MongoDB con Mongoose**
 - 🟤 **Cludinary**
-- ⚪ **Mercado Pago**
 
 Estructura MVC (modular)
 
@@ -111,7 +114,9 @@ Link a nuestro Figma: https://www.figma.com/board/vFXjNDyoSJkdmgDC9MBq4H/App-de-
 
 ## 📔 Diseño
 
----Insertar imágenes---
+![image](https://github.com/user-attachments/assets/269b3c53-4031-4cc0-ada9-41a1a4aecb29)
+![image](https://github.com/user-attachments/assets/b8dc9657-ca08-4164-a2fc-d10df834e1af)
+
 
 Link al Figma de diseño: https://www.figma.com/design/YcXI1tU2yNPxwpex3VZUhd/App-Para-Mascotas?node-id=0-1&p=f&t=HEmeSsWg70JLHpQY-0
 

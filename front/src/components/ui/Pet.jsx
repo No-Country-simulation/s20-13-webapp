@@ -1,5 +1,9 @@
+import { useLocation } from "react-router";
 
 export default function Pet({ pet, onDelete}) {
+
+    const location=useLocation()
+    const profile=location.pathname.includes("profile")
     return (
         <div className="pet-container">
             <div className="pet-card">
@@ -15,7 +19,9 @@ export default function Pet({ pet, onDelete}) {
                     <p><strong>Sobre Mí:</strong> {pet.description}</p>
                     <p><strong>Antecedentes:</strong> {pet.medicalHistory}</p>
                 </div>
-                <button className='btn-red-pet' onClick={() => onDelete(pet._id)}>Eliminar</button>
+                {
+                  profile &&  <button className='btn-red-pet' onClick={() => onDelete(pet._id)}>Eliminar</button>
+                } 
             </div>
         </div>
     );

@@ -32,7 +32,6 @@ export default function ContactCard({ caretaker }) {
         data
       );
 
-      console.log(responseData)
       
       if (responseData ==="Correo enviado con éxito") {
         setError("");

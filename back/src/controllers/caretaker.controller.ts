@@ -27,8 +27,9 @@ export class CaretakerController {
     const { subject, text } = req.body
     const { caretakerId } = req.params
 
+
     try {
-      if (!owner.email || !subject || !text || !caretakerId) {
+      if (!owner.email || !subject || !text || !caretakerId || !owner.id) {
         return res.status(404).json({
           success: false,
           message: "Existen campos vacíos"
@@ -43,6 +44,7 @@ export class CaretakerController {
       }
       const data: IMail = {
         ownerEmail: owner.email,
+        ownerId: owner.id,
         caretakerEmail: caretaker.email,
         caretakerName: caretaker.name,
         name: owner.name,

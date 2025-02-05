@@ -11,6 +11,7 @@ import CaretakerRegisterViews from './views/CaretakerRegisterViews'
 import ProfileView from './views/ProfileView'
 import UserLayout from './layout/UserLayout'
 import NewPet from './components/ui/NewPet'
+import OwnerProfile from './components/ui/ownerprofile/OwnerProfile'
 
 export default function Router() {
   return (
@@ -26,6 +27,7 @@ export default function Router() {
         <Route element={<UserLayout />}>
           <Route path="/profile" element={<ProfileView/>} />
           <Route path={"/caretaker/:id"} element={<CaretakerProfile />} />
+          <Route path={"/owner/:id"} element={<OwnerProfile />} />
           <Route path="/results" element={<SearchResults />} />
           <Route path="/user/:id/newpet" element={<NewPet />} />
         </Route>

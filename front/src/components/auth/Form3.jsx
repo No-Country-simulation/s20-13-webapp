@@ -4,7 +4,7 @@ import ErrorMessage from "../ui/ErrorMessage"
 import { useParams } from "react-router";
 
 const petOptions = [
-    {
+    { 
         id: 1,
         species: "dog"
     },
@@ -25,7 +25,7 @@ export default function Form3({  nextForm }) {
 
     const params = useParams();
     const id = params.id;
-
+    const [loading,setLoading]=useState(false)
     const [preview, setPreview] = useState(null)
     const [file, setFile] = useState(null)
     const [errors, setErrors] = useState({
@@ -63,8 +63,9 @@ export default function Form3({  nextForm }) {
         }
     }
 
-    const handleFormData = async (e) => {
+    const handleFormData = async (e) => {  
         e.preventDefault()
+        setLoading(true)
         const newErrors = {}
         if (!file) newErrors.image = "La foto es obligatoria"
         if (!data.name) newErrors.name = "El nombre es obligatorio"
@@ -75,7 +76,9 @@ export default function Form3({  nextForm }) {
         if (!data.medicalHistory) newErrors.medicalHistory = "Los campos no pueden ir vacíos"
 
         if (Object.keys(newErrors).length > 0) {
-            return setErrors(newErrors)
+            setErrors(newErrors)
+            setLoading(false)
+            return 
         }
 
 
@@ -99,6 +102,8 @@ export default function Form3({  nextForm }) {
             if (isAxiosError(error) && error.response) {
                 setErrors({ ...errors, preview: error.response.data.error });
             }
+        }finally{
+            setLoading(false)
         }
 
     }
@@ -224,7 +229,12 @@ export default function Form3({  nextForm }) {
                     {
                         errors.medicalHistory && <ErrorMessage>{errors.medicalHistory}</ErrorMessage>
                     }
-                    <input className="btn-input" type="submit" value="Guardar" />
+                    <input
+                     className="btn-input"
+                      type="submit"
+                       value={loading ? "Guardando..." : "Guardar"} 
+                       disabled={loading}             
+                       />
                 </form>
             </div>
         </main>

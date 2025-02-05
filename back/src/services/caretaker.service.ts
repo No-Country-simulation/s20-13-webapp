@@ -1,6 +1,4 @@
-import path from "path";
-import { User, IUser, UserRole, UserService } from "../models/Users.model";
-import { Types } from "mongoose";
+import { User, IUser, UserRole} from "../models/Users.model";
 import { IMail, Mailing } from "../emails/mailing";
 
 export class CaretakerService {
